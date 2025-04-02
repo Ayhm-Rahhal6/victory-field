@@ -28,10 +28,8 @@ Route::post('/contact', [ContactController::class, 'send'])->name('contact.send'
 
 
 //public routes
-// Route::get('/contact',[PageController::class,'contact'])->name('contact');
 Route::get('/about',[PageController::class,'about'])->name('about');
-// Route::get('/sports',[PageController::class,'sports'])->name('sports');
-// Route::get('/reservation',[PageController::class,'reservation'])->name('reservation');
+
 Route::get('/reservation',[ReservationController::class,'index'])->name('reservation.index');
 Route::post('/search-sports', [ReservationController::class, 'search'])->name('search.sports');
 Route::post('/reservation', [ReservationController::class, 'confirmReservation'])->name('reservations.store');

@@ -2,7 +2,6 @@
 
 @section('content')
 <div class="container py-4 py-xl-5">
-    <!-- Search form remains unchanged -->
     <form method="POST" action="{{ route('search.sports') }}" class="search-form mb-0">
         @csrf
         <div class="input-group mb-3">
@@ -59,6 +58,7 @@
                     <div class="col-md-6 col-lg-4 filtr-item" data-aos="zoom-in-up" data-aos-duration="250" data-aos-delay="250">
                         <div class="card border-dark">
                             <img class="img-fluid card-img-top w-100 d-block rounded-0"
+                                style="height: 200px; object-fit: cover;"
                                 src="{{ asset("/assets/img/{$field->image}") }}"
                                 alt="{{ $field->name }}">
                             <div class="card-body">
@@ -105,11 +105,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <!-- Hidden form fields for sport and field IDs -->
                                 <input type="hidden" class="sport-id" value="{{ $sport->id }}">
                                 <input type="hidden" class="field-id" value="{{ $field->id }}">
                                 
-                                <!-- Summary section will be dynamically generated -->
                                 <div class="summary border p-3 bg-light rounded mt-3"></div>
                             </div>
                         </div>
