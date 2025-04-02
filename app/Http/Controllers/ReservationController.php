@@ -23,7 +23,6 @@ class ReservationController extends Controller
         $sports = Sport::with(['fields' => function($query) {
             $query->select('id', 'name', 'sport_type', 'price_per_hour', 'image');
         }])->get();
-        
         return view('public.pages.reservation', [
             'sports' => $sports,
             'allSports' => $allSports
