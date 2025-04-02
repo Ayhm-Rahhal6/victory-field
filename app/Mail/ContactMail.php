@@ -2,6 +2,7 @@
 
 
 
+
 namespace App\Mail;
 
 use Illuminate\Bus\Queueable;
@@ -12,16 +13,18 @@ class ContactMail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $contact;
+    public $data;
 
-    public function __construct($contact)
+    public function __construct($data)
     {
-        $this->contact = $contact;
+        $this->data = $data;
     }
 
     public function build()
     {
-        return $this->subject('New Contact Message')
-                    ->view('public.pages.contact-us');
+        return $this->subject('رسالة جديدة من Contact Us')
+                    ->view('public.pages.contact-us')
+                    ->with('data', $this->data);
     }
 }
+

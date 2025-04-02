@@ -24,7 +24,7 @@ Route::get('/sports', [SportsController::class, 'index']);
 
 Route::get('/contact', [ContactController::class, 'index'])->name('contact.index');
 Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
-Route::post('/contact', [ContactController::class, 'send'])->name('contact.send');
+Route::post('/contact/send', [ContactController::class, 'send'])->name('contact.send');
 
 
 //public routes

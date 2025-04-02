@@ -941,7 +941,7 @@
   border: 1px solid #cfd1d8;
   -webkit-border-radius: 2px;
   -moz-border-radius: 2px;
-  border-radius: 2px;
+  border-radius: 10px;
   background: #fff;
   color: #2e323c;
 }
@@ -1217,10 +1217,10 @@ footer .list-inline-item a {
   vertical-align: middle;
 }
 #login-box {
-  max-width: 500px;
+  max-width: 700px;
   margin: 0 auto;
-  margin-top: 25px !important;
-  border-radius: 12px;
+  margin-top: 30px !important;
+  border-radius: 20px;
   overflow: hidden;
   background: #fff;
   -webkit-box-shadow: 0 6px 30px rgba(0, 0, 0, 0.2);
@@ -1285,6 +1285,7 @@ footer .list-inline-item a {
 }
 .email-login {
   padding: 10px 20px;
+  max-width: 700px;
 }
 #submit-id-submit {
   margin-top: 0;

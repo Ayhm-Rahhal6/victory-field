@@ -42,9 +42,8 @@ class ContactController extends Controller
             'message' => 'required|string',
         ]);
 
-        // إرسال البريد الإلكتروني
-        Mail::to('')->send(new ContactMail($request->all()));
+        Mail::to('your_email@gmail.com')->send(new ContactMail($request->all()));
 
-        return back()->with('success', 'تم إرسال الرسالة بنجاح!');
+        return back()->with('success', 'تم إرسال رسالتك بنجاح!');
     }
 }

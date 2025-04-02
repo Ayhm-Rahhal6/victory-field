@@ -3,17 +3,28 @@
   <!-- Start: Hero Carousel -->
   <div class="carousel slide" data-bs-ride="carousel" id="carousel-1" style="height: 600px;">
     <div class="carousel-inner h-100">
-      <div class="carousel-item active h-100" style="filter: brightness(55%);"><img
-          class="w-100 d-block position-absolute h-100 fit-cover"
-          src="/assets/img/slid1.webp?h=612e2267d863dbd293490f5a0de4dcb7" alt="Slide Image" style="z-index: -1;"></div>
+        <div class="carousel-item active h-100" style="filter: brightness(55%);">
+            <img class="w-100 d-block position-absolute h-100 fit-cover"
+                src="/assets/img/slid1.webp?h=612e2267d863dbd293490f5a0de4dcb7" alt="Slide Image" style="z-index: -1;">
+            <div class="carousel-caption d-flex flex-column justify-content-center align-items-center h-100">
+                <h1 class="text-white-100 fw-bold">Welcome to Our Website</h1>
+                <p class="text-white">Enjoy the best experience in booking sports fields easily</p>
+                <a href="/reservation" class="btn mt-3" style="background-color: #21b04c; color: rgb(255, 255, 255); padding: 10px 20px; border-radius: 5px; font-size: 18px;">Book Now</a>
+            </div>
+        </div>
     </div>
-    <div><!-- Start: Previous --><a class="carousel-control-prev" href="#carousel-1" role="button"
-        data-bs-slide="prev"><span
-          class="visually-hidden">Previous</span></a><!-- End: Previous --><!-- Start: Next --><a
-        class="carousel-control-next" href="#carousel-1" role="button" data-bs-slide="next"><span
-          class="visually-hidden">Next</span></a><!-- End: Next --></div>
+    <div>
+        <a class="carousel-control-prev" href="#carousel-1" role="button" data-bs-slide="prev">
+            <span class="visually-hidden">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#carousel-1" role="button" data-bs-slide="next">
+            <span class="visually-hidden">Next</span>
+        </a>
+    </div>
     <div class="carousel-indicators"></div>
-  </div>
+</div>
+
+
   <!-- End: Hero Carousel -->
 
 
@@ -61,7 +72,7 @@
   <div class="container py-4 py-xl-5 mt-2 mb-5">
     <div class="row mb-5" data-aos="zoom-in" data-aos-duration="250" data-aos-delay="250">
       <div class="col-md-11 col-lg-10 col-xl-9 text-center mx-auto">
-        <h2>Latest <strong><span style="color: rgb(34, 177, 76);">News</span></strong></h2>
+        <h2>Latest <strong><span style="color: #21b04c;">News</span></strong></h2>
         <p class="w-lg-50"><strong><em><span style="color: rgb(26, 26, 26);">Stay updated with the latest news and
                 events – right here!</span></em></strong></p>
       </div>
