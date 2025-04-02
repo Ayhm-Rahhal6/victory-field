@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\View;
 
 use App\Http\Controllers\SportsController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReservationController;
 
 Route::get('/', function () {
@@ -37,3 +38,5 @@ Route::post('/reservation', [ReservationController::class, 'confirmReservation']
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::get('/profile',[ProfileController::class,'index'])->name('profile.show');

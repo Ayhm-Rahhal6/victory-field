@@ -32,6 +32,20 @@
             <button class="btn btn-success rounded-3" type="submit">Search</button>
         </div>
     </form>
+    <!-- Toast Notification Container -->
+    <div class="position-fixed top-0 end-0 p-3" style="z-index: 11">
+        <div id="reservationToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header bg-success text-white">
+                <strong class="me-auto">Success</strong>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body">
+                @if(session('success'))
+                    {{ session('success') }}
+                @endif
+            </div>
+        </div>
+    </div>
 
     <section class="py-5">
         @if($sports->isEmpty())
@@ -66,10 +80,17 @@
                                 <h6>${{ number_format($field->price_per_hour, 2) }}/hour</h6>
                             </div>
                             <div class="d-flex card-footer">
+                                @if(Auth::check())
                                 <button class="btn btn-dark btn-sm reservation-btn"
                                         style="background: #22b14c; border-color: #22b14c; border-radius: 10px;">
                                     Reservation
                                 </button>
+                                @else
+                                <a href="{{ route('login') }}" class="btn btn-dark btn-sm text-light text-decoration-none"
+                                   style="background: #22b14c; border-color: #22b14c; border-radius: 10px;">
+                                    Login to Reserve
+                                </a>
+                                @endif
                                 <button class="btn btn-outline-dark btn-sm ms-auto" 
                                         type="button"
                                         style="border-radius: 10px; border-color: #22b14c; background: #22b14c;">
@@ -77,6 +98,7 @@
                                 </button>
                             </div>
                             
+                            @if(Auth::check())
                             <div id="reservation-div" class="booking-container text-center border border-success rounded-2 p-3">
                                 <h2>Book Your Slot</h2>
                                <input type="date" class="form-control date-input" 
@@ -110,6 +132,7 @@
                                 
                                 <div class="summary border p-3 bg-light rounded mt-3"></div>
                             </div>
+                            @endif
                         </div>
                     </div>
                     @endforeach
@@ -132,25 +155,63 @@
     .booking-container{
         display: none;
     }
+
+    #reservationToast {
+        min-width: 300px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+    
+    .toast-header.bg-success {
+        background-color: #22b14c !important;
+    }
+    
+    /* Animation for toast */
+    .toast.show {
+        animation: slideIn 0.3s forwards;
+    }
+    
+    @keyframes slideIn {
+        from { transform: translateY(100%); opacity: 0; }
+        to { transform: translateY(0); opacity: 1; }
+    }
 </style>
 
 <script>
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize all toasts
+    const toastEl = document.getElementById('reservationToast');
+    if (toastEl) {
+        const toast = new bootstrap.Toast(toastEl);
+        
+        // Only show if there's a success message
+        @if(session('success'))
+            toast.show();
+            
+            // Auto-hide after 5 seconds
+            setTimeout(() => {
+                toast.hide();
+            }, 5000);
+        @endif
+    }
+});
+
+
 document.addEventListener("DOMContentLoaded", function () {
+    // Toggle the booking container when clicking reservation button
     document.querySelectorAll('.reservation-btn').forEach(button => {
         button.addEventListener('click', function () {
             let bookingContainer = this.closest('.card').querySelector('.booking-container');
-            if (bookingContainer.style.display === 'none' || bookingContainer.style.display === '') {
-                bookingContainer.style.display = 'block';
-            } else {
-                bookingContainer.style.display = 'none';
-            }
+            bookingContainer.style.display = (bookingContainer.style.display === 'none' || bookingContainer.style.display === '') ? 'block' : 'none';
         });
     });
 
+    // Initialize each booking container
     document.querySelectorAll('.booking-container').forEach(container => {
         let startTimeSelect = container.querySelector('.start-time');
         let endTimeSelect = container.querySelector('.end-time');
         let dateInput = container.querySelector('.date-input');
+        let summaryDiv = container.querySelector('.summary');
 
         function updateEndTimes() {
             let selectedStart = parseFloat(startTimeSelect.value.replace(':30', '.5'));
@@ -167,68 +228,97 @@ document.addEventListener("DOMContentLoaded", function () {
             let date = dateInput.value;
             let startTime = startTimeSelect.value;
             let endTime = endTimeSelect.value;
-            let pricePerHour = parseFloat(container.closest('.card').querySelector('h6:nth-child(2)').innerText.replace('$', ''));
-            if (!date || !startTime || !endTime) return;
+            
+            // Only proceed if all values are selected
+            if (!date || !startTime || !endTime) {
+                summaryDiv.innerHTML = '';
+                return;
+            }
 
+            // Calculate price
+            let pricePerHour = parseFloat(container.closest('.card').querySelector('h6:nth-child(2)').textContent.replace('$', '').replace('/hour', ''));
             let start = parseFloat(startTime.replace(':30', '.5'));
             let end = parseFloat(endTime.replace(':30', '.5'));
             let hours = end - start;
             let totalPrice = (hours * pricePerHour).toFixed(2);
             let day = new Date(date).toLocaleDateString('en-US', { weekday: 'long' });
 
-            container.querySelector('.summary')?.remove();
-            container.insertAdjacentHTML('beforeend', `
-                <div class="summary border p-3 bg-light rounded mt-3">
-                    <h5>Reservation Summary</h5>
-                    <p><strong>Date:</strong> ${date} (${day})</p>
-                    <p><strong>Duration:</strong> ${hours} hour(s)</p>
-                    <p><strong>Total Price:</strong> $${totalPrice}</p>
-                    <button class="btn btn-success mt-3 confirm-btn" style="border-radius: 10px;">Confirm Reservation</button>
-                </div>
-            `);
+            // Update summary div
+            summaryDiv.innerHTML = `
+                <h5>Reservation Summary</h5>
+                <p><strong>Date:</strong> ${date} (${day})</p>
+                <p><strong>Duration:</strong> ${hours} hour(s)</p>
+                <p><strong>Total Price:</strong> $${totalPrice}</p>
+                <button class="btn btn-success mt-3 confirm-btn" style="border-radius: 10px;"
+                        data-price="${totalPrice}">Confirm Reservation</button>
+            `;
+
+            // Add event listener to the newly created confirm button
+            let confirmBtn = summaryDiv.querySelector('.confirm-btn');
+            confirmBtn.addEventListener('click', function() {
+                submitReservation(date, startTime, endTime, totalPrice);
+            });
         }
 
-        startTimeSelect.addEventListener('change', updateEndTimes);
-        startTimeSelect.addEventListener('change', updateSummary);
+        function submitReservation(date, startTime, endTime, price) {
+            let sportId = container.querySelector('.sport-id').value;
+            let fieldId = container.querySelector('.field-id').value;
+            let userId = "{{ Auth::id() }}";
+
+            // Create form
+            let form = document.createElement('form');
+            form.method = 'POST';
+            form.action = "{{ route('reservations.store') }}";
+            form.style.display = 'none';
+
+            // Add CSRF token
+            let csrfInput = document.createElement('input');
+            csrfInput.type = 'hidden';
+            csrfInput.name = '_token';
+            csrfInput.value = "{{ csrf_token() }}";
+            form.appendChild(csrfInput);
+
+            // Add other form fields
+            let fields = {
+                'date': date,
+                'start_time': startTime,
+                'end_time': endTime,
+                'sport_id': sportId,
+                'field_id': fieldId,
+                'user_id': userId,
+                'price': price
+            };
+
+            for (let key in fields) {
+                let input = document.createElement('input');
+                input.type = 'hidden';
+                input.name = key;
+                input.value = fields[key];
+                form.appendChild(input);
+            }
+
+            // Append form to document and submit
+            document.body.appendChild(form);
+            form.submit();
+        }
+
+        // Initialize and add event listeners
+        startTimeSelect.addEventListener('change', function() {
+            updateEndTimes();
+            updateSummary();
+        });
         endTimeSelect.addEventListener('change', updateSummary);
         dateInput.addEventListener('change', updateSummary);
 
-        updateEndTimes();  // Initial end time update
-
-        container.addEventListener('click', function (event) {
-            if (event.target.classList.contains('confirm-btn')) {
-                let date = container.querySelector('.date-input').value;
-                let startTime = container.querySelector('.start-time').value;
-                let endTime = container.querySelector('.end-time').value;
-                let sportId = container.querySelector('.sport-id').value;
-                let fieldId = container.querySelector('.field-id').value;
-                let userId = "{{ auth()->id() }}";  // Pass the logged-in user's ID here
-
-                if (!date || !startTime || !endTime) {
-                    alert("Please fill in all the fields.");
-                    return;
-                }
-
-                let form = document.createElement('form');
-                form.method = 'POST';
-                form.action = "{{ route('reservations.store') }}";
-
-                form.innerHTML = `
-                    @csrf
-                    <input type="hidden" name="date" value="${date}">
-                    <input type="hidden" name="start_time" value="${startTime}">
-                    <input type="hidden" name="end_time" value="${endTime}">
-                    <input type="hidden" name="sport_id" value="${sportId}">
-                    <input type="hidden" name="field_id" value="${fieldId}">
-                    <input type="hidden" name="user_id" value="${userId}">  <!-- Include user_id here -->
-                `;
-
-                document.body.appendChild(form);
-                form.submit();
-            }
-        });
+        // Initial setup
+        updateEndTimes();
     });
 });
-</script>
 
+// Function for the sport dropdown
+function setSport(sportValue, sportText) {
+    document.getElementById('selectedSport').value = sportValue;
+    document.getElementById('sportDropdown').textContent = sportText;
+}
+</script>
 @endsection

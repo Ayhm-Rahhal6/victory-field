@@ -9,9 +9,14 @@ use App\Models\Field;
 use App\Models\Reservation;
 use Carbon\Carbon;
 
-
 class ReservationController extends Controller
 {
+    public function __construct()
+    {
+        // Apply auth middleware to all methods except index and search
+        $this->middleware('auth')->except(['index', 'search']);
+    }
+
     public function index()
     {
         $allSports = Sport::all();
@@ -53,27 +58,24 @@ class ReservationController extends Controller
 
     public function confirmReservation(Request $request)
     {
-        // dd($request->input('date'));
-        // dd($request->input('start_time'));
-        // dd($request->input('end_time'));
-        // dd($request->input('sport_id'));
-        // dd($request->input('field_id'));
-        // dd($request->input('user_id'));
-        // dd($request->input('price'));
 
-        $validate = [
-            'date' => 'required|date|after_or_equal:today',
-            'start_time' => 'required|date_format:H:i',
-            'end_time' => 'required|date_format:H:i|after:start_time',
+        $validatedData = $request->validate(
+            [
+              'date' => 'required|date|after_or_equal:today',
+            'start_time' => 'required|date_format:G:i',  // Changed from H:i to G:i
+            'end_time' => 'required|date_format:G:i|after:start_time',
             'sport_id' => 'required|exists:sports,id',
             'field_id' => 'required|exists:fields,id',
             'user_id' => 'required|exists:users,id',
             'price' => 'required|numeric',
-        ];
+            ]
+        );
 
-        $validatedData = $request->validate($validate);
-
-       
+        
+        if ($validatedData['user_id'] != Auth::id()) {
+            return redirect()->back()->with('error', 'Invalid user information.');
+        }
+        
         $reservation = Reservation::create([
             'user_id' => $validatedData['user_id'], 
             'field_id' => $validatedData['field_id'],
@@ -88,5 +90,4 @@ class ReservationController extends Controller
             'reservation' => $reservation 
         ]);
     }
-
 }
