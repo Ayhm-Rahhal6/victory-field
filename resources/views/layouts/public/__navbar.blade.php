@@ -1,4 +1,3 @@
-<!-- Start: Black Navbar -->
 <nav class="navbar navbar-expand-md navbar-fixed-top navigation-clean-button navbar-light"
     style="background: #1a1a1a; border-radius: 0px; border-style: none; padding-top: 0; padding-bottom: 10px; position: relative; overflow: visible;"
     data-bs-smooth-scroll="true" data-bs-target="#navcol-1">
@@ -30,15 +29,37 @@
                     <a class="nav-link {{ request()->is('about') ? 'active' : '' }}" href="/about">About Us</a>
                 </li>
             </ul>
-            <p class="ms-auto navbar-text actions">
-                <a class="login" href="/login" style="color: #22b14c; font-weight: bold;">Log In</a>
-                <a class="btn btn-light action-button" role="button" href="/register"
-                    style="color: rgb(255,255,255); background: #22b14c; border-radius: 10px; font-size: 16px; padding: 5px 8px; border-style: solid; border-color: #22b14c;">
-                    Sign Up
-                </a>
-            </p>
+            <ul class="navbar-nav ms-auto">
+                @guest
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('login') }}" style="color: #22b14c; font-weight: bold;">{{ __('Login') }}</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="btn btn-light action-button" role="button" href="{{ route('register') }}"
+                            style="color: rgb(255,255,255); background: #22b14c; border-radius: 10px; font-size: 16px; padding: 5px 8px; border-style: solid; border-color: #22b14c;">
+                            {{ __('Sign Up') }}
+                        </a>
+                    </li>
+                @else
+                    <li class="nav-item dropdown">
+                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                            {{ Auth::user()->name }}
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item text-success" href="{{ route('profile.show') }}">
+                                <i class="fas fa-user-circle me-2"></i> {{ __('Profile') }}
+                            </a>
+                            <a class="dropdown-item text-success" href="{{ route('logout') }}"
+                               onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                {{ __('Logout') }}
+                            </a>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                @csrf
+                            </form>
+                        </div>
+                    </li>
+                @endguest
+            </ul>
         </div>
     </div>
 </nav>
-
-  <!-- End: Black Navbar -->

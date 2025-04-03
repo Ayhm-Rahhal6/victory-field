@@ -9,16 +9,20 @@ use App\Models\Field;
 use App\Models\Reservation;
 use Carbon\Carbon;
 
-
 class ReservationController extends Controller
 {
+    public function __construct()
+    {
+        // Apply auth middleware to all methods except index and search
+        $this->middleware('auth')->except(['index', 'search']);
+    }
+
     public function index()
     {
         $allSports = Sport::all();
         $sports = Sport::with(['fields' => function($query) {
             $query->select('id', 'name', 'sport_type', 'price_per_hour', 'image');
         }])->get();
-        
         return view('public.pages.reservation', [
             'sports' => $sports,
             'allSports' => $allSports
@@ -30,7 +34,7 @@ class ReservationController extends Controller
         $searchTerm = trim($request->input('search'));
         $selectedSport = $request->input('selected_sport');
         
-        $allSports = Sport::all(); // For dropdown
+        $allSports = Sport::all();
         
         $sports = Sport::with(['fields' => function($query) {
                 $query->select('id', 'name', 'sport_type', 'price_per_hour', 'image');
@@ -53,34 +57,26 @@ class ReservationController extends Controller
 
     public function confirmReservation(Request $request)
     {
-        dd($request->input('date'));
-        // dd($request->input('start_time'));
-        // dd($request->input('end_time'));
-        // dd($request->input('sport_id'));
-        // dd($request->input('field_id'));
-        // dd($request->input('user_id'));
-        // dd($request->input('price'));
 
-        // Validate the incoming request data
-        $validate = [
-            'date' => 'required|date|after_or_equal:today',
-            'start_time' => 'required|date_format:H:i',
-            'end_time' => 'required|date_format:H:i|after:start_time',
+        $validatedData = $request->validate(
+            [
+              'date' => 'required|date|after_or_equal:today',
+            'start_time' => 'required|date_format:G:i',  // Changed from H:i to G:i
+            'end_time' => 'required|date_format:G:i|after:start_time',
             'sport_id' => 'required|exists:sports,id',
             'field_id' => 'required|exists:fields,id',
             'user_id' => 'required|exists:users,id',
             'price' => 'required|numeric',
-        ];
+            ]
+        );
 
-        // Perform the validation
-        $validatedData = $request->validate($validate);
-
-        // Debugging output (you can remove these dd statements after validation works)
-        // dd($validatedData); // This will show the validated data
-
-        // Create the reservation in the database
+        
+        if ($validatedData['user_id'] != Auth::id()) {
+            return redirect()->back()->with('error', 'Invalid user information.');
+        }
+        
         $reservation = Reservation::create([
-            'user_id' => $validatedData['user_id'], // Ensure user_id is passed correctly
+            'user_id' => $validatedData['user_id'], 
             'field_id' => $validatedData['field_id'],
             'start_time' => $validatedData['date'] . ' ' . $validatedData['start_time'],
             'end_time' => $validatedData['date'] . ' ' . $validatedData['end_time'],
@@ -88,11 +84,9 @@ class ReservationController extends Controller
             'total_price' => $validatedData['price'],
         ]);
 
-        // Redirect to the reservation index page with a success message and reservation details
         return redirect()->route('reservation.index')->with([
             'success' => 'Reservation successfully confirmed!',
-            'reservation' => $reservation // Passing reservation data to the session
+            'reservation' => $reservation 
         ]);
     }
-
 }

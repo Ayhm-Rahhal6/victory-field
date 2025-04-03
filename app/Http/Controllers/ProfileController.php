@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
+use App\Models\Reservation;
+use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -19,6 +21,12 @@ class ProfileController extends Controller
         return view('profile.edit', [
             'user' => $request->user(),
         ]);
+    }
+
+    public function index(){
+        $user= User::where('id',Auth::id())->first();
+        $history=Reservation::where('user_id',$user->id)->orderBy('created_at','desc')->paginate(10);
+        return view('public.pages.profile' , compact('user','history'));
     }
 
     /**
