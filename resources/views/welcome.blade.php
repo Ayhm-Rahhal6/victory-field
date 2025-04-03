@@ -185,58 +185,46 @@
   
   
   
-  <!-- Start: Stats -->
-  <div class="container py-4 py-xl-5 mb-5" style="background: #e0e0e0;">
-    <div class="row gy-4 row-cols-2 row-cols-md-4 mt-0">
+ <!-- Start: Stats -->
+<div class="container py-4 py-xl-5 mb-5" style="background: #e0e0e0;">
+  <div class="row gy-4 row-cols-2 row-cols-md-4 mt-0">
       <div class="col-lg-4" data-aos="zoom-out-right" data-aos-duration="250" data-aos-delay="250">
-        <div class="text-center d-flex flex-column justify-content-center align-items-center py-3">
-          <div
-            class="bs-icon-xl bs-icon-circle bs-icon-primary d-flex flex-shrink-0 justify-content-center align-items-center d-inline-block mb-2 bs-icon lg"
-            style="background: #22b14c;"><i class="fa fa-users"></i></div>
-          <div class="px-3">
-            <h2 class="fw-bold mb-0">123+</h2>
-            <p class="mb-0">Users</p>
+          <div class="text-center d-flex flex-column justify-content-center align-items-center py-3">
+              <div class="bs-icon-xl bs-icon-circle bs-icon-primary d-flex flex-shrink-0 justify-content-center align-items-center d-inline-block mb-2 bs-icon lg" style="background: #22b14c;">
+                  <i class="fa fa-users"></i>
+              </div>
+              <div class="px-3">
+                  <h2 class="fw-bold mb-0">{{ $usersCount }}+</h2>
+                  <p class="mb-0">Users</p>
+              </div>
           </div>
-        </div>
       </div>
       <div class="col-lg-4" data-aos="zoom-out-up" data-aos-duration="250" data-aos-delay="250">
-        <div class="text-center d-flex flex-column justify-content-center align-items-center py-3">
-          <div
-            class="bs-icon-xl bs-icon-circle bs-icon-primary d-flex flex-shrink-0 justify-content-center align-items-center d-inline-block mb-2 bs-icon lg"
-            style="background: #22b14c;"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"
-              fill="currentColor" viewBox="0 0 16 16" class="bi bi-ticket-perforated">
-              <path
-                d="M4 4.85v.9h1v-.9zm7 0v.9h1v-.9zm-7 1.8v.9h1v-.9H4m7 0v.9h1v-.9h-1m-7 1.8v.9h1v-.9zm7 0v.9h1v-.9zm-7 1.8v.9h1v-.9zm7 0v.9h1v-.9z">
-              </path>
-              <path
-                d="M1.5 3A1.5 1.5 0 0 0 0 4.5V6a.5.5 0 0 0 .5.5 1.5 1.5 0 1 1 0 3 .5.5 0 0 0-.5.5v1.5A1.5 1.5 0 0 0 1.5 13h13a1.5 1.5 0 0 0 1.5-1.5V10a.5.5 0 0 0-.5-.5 1.5 1.5 0 0 1 0-3A.5.5 0 0 0 16 6V4.5A1.5 1.5 0 0 0 14.5 3zM1 4.5a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 .5.5v1.05a2.5 2.5 0 0 0 0 4.9v1.05a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5v-1.05a2.5 2.5 0 0 0 0-4.9z">
-              </path>
-            </svg></div>
-          <div class="px-3">
-            <h2 class="fw-bold mb-0">45+</h2>
-            <p class="mb-0">Reservation</p>
+          <div class="text-center d-flex flex-column justify-content-center align-items-center py-3">
+              <div class="bs-icon-xl bs-icon-circle bs-icon-primary d-flex flex-shrink-0 justify-content-center align-items-center d-inline-block mb-2 bs-icon lg" style="background: #22b14c;">
+                  <i class="fa fa-ticket"></i>
+              </div>
+              <div class="px-3">
+                  <h2 class="fw-bold mb-0">{{ $reservationsCount }}+</h2>
+                  <p class="mb-0">Reservations</p>
+              </div>
           </div>
-        </div>
       </div>
       <div class="col-lg-4" data-aos="zoom-out-left" data-aos-duration="250" data-aos-delay="250">
-        <div class="text-center d-flex flex-column justify-content-center align-items-center py-3">
-          <div
-            class="bs-icon-xl bs-icon-circle bs-icon-primary d-flex flex-shrink-0 justify-content-center align-items-center d-inline-block mb-2 bs-icon lg"
-            style="background: #22b14c;"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"
-              fill="currentColor" viewBox="0 0 16 16" class="bi bi-arrows-angle-contract">
-              <path fill-rule="evenodd"
-                d="M.172 15.828a.5.5 0 0 0 .707 0l4.096-4.096V14.5a.5.5 0 1 0 1 0v-3.975a.5.5 0 0 0-.5-.5H1.5a.5.5 0 0 0 0 1h2.768L.172 15.121a.5.5 0 0 0 0 .707zM15.828.172a.5.5 0 0 0-.707 0l-4.096 4.096V1.5a.5.5 0 1 0-1 0v3.975a.5.5 0 0 0 .5.5H14.5a.5.5 0 0 0 0-1h-2.768L15.828.879a.5.5 0 0 0 0-.707z">
-              </path>
-            </svg></div>
-          <div class="px-3">
-            <h2 class="fw-bold mb-0">67+</h2>
-            <p class="mb-0">Contact Us</p>
+          <div class="text-center d-flex flex-column justify-content-center align-items-center py-3">
+              <div class="bs-icon-xl bs-icon-circle bs-icon-primary d-flex flex-shrink-0 justify-content-center align-items-center d-inline-block mb-2 bs-icon lg" style="background: #22b14c;">
+                  <i class="fa fa-envelope"></i>
+              </div>
+              <div class="px-3">
+                  <h2 class="fw-bold mb-0">{{ $contactsCount }}+</h2>
+                  <p class="mb-0">Contact Us</p>
+              </div>
           </div>
-        </div>
       </div>
-    </div>
   </div>
-  <!-- End: Stats -->
+</div>
+<!-- End: Stats -->
+
   
   
 @endsection

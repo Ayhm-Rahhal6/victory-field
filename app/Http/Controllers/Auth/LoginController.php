@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
@@ -37,4 +39,24 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
         $this->middleware('auth')->only('logout');
     }
+
+
+    public function login(Request $request)
+{
+    $credentials = $request->validate([
+        'email' => 'required|email',
+        'password' => 'required',
+    ]);
+
+    if (Auth::attempt($credentials)) {
+        $request->session()->regenerate();
+
+        // توجيه المستخدم العادي إلى الصفحة الرئيسية، والمشرف إلى لوحة التحكم
+        return Auth::user()->role === 'admin' ? redirect('/admin') : redirect('/');
+    }
+
+    return back()->withErrors([
+        'email' => 'These credentials do not match our records.',
+    ]);
+}
 }
