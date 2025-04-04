@@ -56,37 +56,55 @@ class ReservationController extends Controller
     }
 
     public function confirmReservation(Request $request)
-    {
+{
+    $validatedData = $request->validate([
+        'date' => 'required|date|after_or_equal:today',
+        'start_time' => 'required|date_format:G:i',
+        'end_time' => 'required|date_format:G:i|after:start_time',
+        'sport_id' => 'required|exists:sports,id',
+        'field_id' => 'required|exists:fields,id',
+        'user_id' => 'required|exists:users,id',
+    ]);
 
-        $validatedData = $request->validate(
-            [
-              'date' => 'required|date|after_or_equal:today',
-            'start_time' => 'required|date_format:G:i',  // Changed from H:i to G:i
-            'end_time' => 'required|date_format:G:i|after:start_time',
-            'sport_id' => 'required|exists:sports,id',
-            'field_id' => 'required|exists:fields,id',
-            'user_id' => 'required|exists:users,id',
-            'price' => 'required|numeric',
-            ]
-        );
-
-        
-        if ($validatedData['user_id'] != Auth::id()) {
-            return redirect()->back()->with('error', 'Invalid user information.');
-        }
-        
-        $reservation = Reservation::create([
-            'user_id' => $validatedData['user_id'], 
-            'field_id' => $validatedData['field_id'],
-            'start_time' => $validatedData['date'] . ' ' . $validatedData['start_time'],
-            'end_time' => $validatedData['date'] . ' ' . $validatedData['end_time'],
-            'total_hours' => (strtotime($validatedData['end_time']) - strtotime($validatedData['start_time'])) / 3600, // Calculate the total hours
-            'total_price' => $validatedData['price'],
-        ]);
-
-        return redirect()->route('reservation.index')->with([
-            'success' => 'Reservation successfully confirmed!',
-            'reservation' => $reservation 
-        ]);
+    if ($validatedData['user_id'] != Auth::id()) {
+        return redirect()->back()->with('error', 'Invalid user information.');
     }
+
+    $start = Carbon::parse($validatedData['date'] . ' ' . $validatedData['start_time']);
+    $end = Carbon::parse($validatedData['date'] . ' ' . $validatedData['end_time']);
+    
+    // التحقق من عدم وجود حجز متعارض
+    $conflictingReservation = Reservation::where('field_id', $validatedData['field_id'])
+        ->where(function($query) use ($start, $end) {
+            $query->whereBetween('start_time', [$start, $end])
+                  ->orWhereBetween('end_time', [$start, $end])
+                  ->orWhere(function($q) use ($start, $end) {
+                      $q->where('start_time', '<', $start)
+                        ->where('end_time', '>', $end);
+                  });
+        })
+        ->exists();
+
+    if ($conflictingReservation) {
+        return redirect()->back()->with('error', 'This field is already booked for the selected time slot.');
+    }
+
+    $hours = $end->diffInHours($start);
+    $field = Field::find($validatedData['field_id']);
+    $totalPrice = $hours * $field->price_per_hour;
+
+    $reservation = Reservation::create([
+        'user_id' => $validatedData['user_id'], 
+        'field_id' => $validatedData['field_id'],
+        'start_time' => $start,
+        'end_time' => $end,
+        'total_hours' => $hours,
+        'total_price' => $totalPrice,
+    ]);
+
+    return redirect()->route('reservation.index')->with([
+        'success' => 'Reservation successfully confirmed!',
+        'reservation' => $reservation 
+    ]);
+}
 }

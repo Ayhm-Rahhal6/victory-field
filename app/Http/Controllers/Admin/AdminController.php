@@ -1,34 +1,106 @@
 <?php
+
+
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 
 class AdminController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('super_admin')->except(['index', 'edit', 'update']);
+    }
+
     public function index()
     {
-        return view('dashboard');
+        $admins = User::whereIn('role', ['super_admin', 'admin'])
+                     ->orderBy('role')
+                     ->orderBy('created_at', 'desc')
+                     ->paginate(10);
+        
+        return view('admin.admins.index', compact('admins'));
     }
 
-    public function indexUser()
+    public function create()
     {
-        $users = User::all();
-        return view('admin.users.index', compact('users'));
+        return view('admin.admins.create');
+    // echo "You are not allowed to create a new admin from here, please contact the super admin.";
+       
     }
 
-    public function show($id)
+    public function store(Request $request)
     {
-        $user = User::findOrFail($id);
-        return view('admin.users.show', compact('user'));
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'phone_number' => 'nullable|string|max:20',
+            'password' => 'required|string|min:8|confirmed',
+        ]);
+
+        User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'phone_number' => $request->phone_number,
+            'password' => Hash::make($request->password),
+            'role' => 'admin',
+        ]);
+
+        return redirect()->route('admin.admins.index')
+                        ->with('success', 'Admin created successfully');
     }
 
-    public function destroy($id)
+    public function edit(User $admin)
     {
-        $user = User::findOrFail($id);
-        $user->delete();
+        // يمكن للمشرف العادي تعديل بياناته فقط
+        if(Auth::user()->role === 'admin' && Auth::id() !== $admin->id) {
+            abort(403);
+        }
 
-        return redirect()->route('admin.users.index')->with('success', 'User deleted successfully');
+        return view('admin.admins.edit', compact('admin'));
     }
+
+    public function update(Request $request, User $admin)
+    {
+        // يمكن للمشرف العادي تعديل بياناته فقط
+        if(Auth::user()->role === 'admin' && Auth::id() !== $admin->id) {
+            abort(403);
+        }
+
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users,email,'.$admin->id,
+            'phone_number' => 'nullable|string|max:20',
+            'password' => 'nullable|string|min:8|confirmed',
+        ]);
+
+        $data = [
+            'name' => $request->name,
+            'email' => $request->email,
+            'phone_number' => $request->phone_number,
+        ];
+
+        if($request->password) {
+            $data['password'] = Hash::make($request->password);
+        }
+
+        $admin->update($data);
+
+        return redirect()->route('admin.admins.index')
+                        ->with('success', 'Admin updated successfully');
+    }
+
+    public function destroy(User $admin)
+    {
+        $admin->delete();
+        
+        return redirect()->route('admin.admins.index')
+                        ->with('success', 'Admin deleted successfully');
+    }
+
+
 }

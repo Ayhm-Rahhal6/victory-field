@@ -10,7 +10,8 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void
+    // في ملف database/migrations/xxxx_create_sports_table.php
+    public function up()
     {
         Schema::create('sports', function (Blueprint $table) {
             $table->id();
@@ -20,10 +21,8 @@ return new class extends Migration
             $table->string('image')->nullable();
             $table->string('link_info')->nullable();
             $table->string('link_rule')->nullable();
-            
             $table->timestamps();
         });
-        
     }
 
     /**

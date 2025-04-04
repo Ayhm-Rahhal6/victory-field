@@ -50,9 +50,15 @@ class LoginController extends Controller
 
     if (Auth::attempt($credentials)) {
         $request->session()->regenerate();
-
-        // توجيه المستخدم العادي إلى الصفحة الرئيسية، والمشرف إلى لوحة التحكم
-        return Auth::user()->role === 'admin' ? redirect('/admin') : redirect('/');
+    
+        // توجيه المستخدم حسب الدور
+        if (Auth::user()->role === 'super_admin') {
+            return redirect('/admin'); // أو أي مسار خاص بالـ super admin
+        } elseif (Auth::user()->role === 'admin') {
+            return redirect('/admin'); // مسار الـ admin العادي
+        } else {
+            return redirect('/'); // الصفحة الرئيسية للمستخدمين العاديين
+        }
     }
 
     return back()->withErrors([

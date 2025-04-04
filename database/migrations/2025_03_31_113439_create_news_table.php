@@ -11,6 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
+       // في ملف database/migrations/xxxx_create_news_table.php
+
         Schema::create('news', function (Blueprint $table) {
             $table->id();
             $table->string('title');
@@ -20,6 +22,7 @@ return new class extends Migration
             $table->string('source');
             $table->timestamps();
         });
+
     }
 
     /**

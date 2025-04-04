@@ -13,7 +13,7 @@ class Sport extends Model
     use HasFactory;
 
     protected $fillable = [
-        'title',
+       'title',
         'description_info',
         'description_rule',
         'image',

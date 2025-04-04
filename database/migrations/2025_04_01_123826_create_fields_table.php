@@ -5,14 +5,16 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration {
-    public function up(): void {
+    // في ملف database/migrations/xxxx_create_fields_table.php
+    public function up()
+    {
         Schema::create('fields', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('image');
-            $table->decimal('price_per_hour', 8, 2);
-            $table->string('location');
             $table->string('sport_type');
+            $table->string('location'); // سيخزن الروابط
+            $table->text('description')->nullable();
+            $table->string('image')->nullable();
             $table->timestamps();
         });
     }

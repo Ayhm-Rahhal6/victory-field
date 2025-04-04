@@ -11,7 +11,7 @@
                    value="{{ $searchTerm ?? '' }}"
                    autocomplete="off">
             
-            <button class="btn btn-outline-secondary dropdown-toggle rounded-3" 
+            <button class="btn dropdown-toggle rounded-3" 
                     type="button" id="sportDropdown"
                     data-bs-toggle="dropdown" aria-expanded="false"
                     onmouseover="this.classList.add('btn-success')" 
@@ -169,7 +169,11 @@
     .toast.show {
         animation: slideIn 0.3s forwards;
     }
-    
+    #sportDropdown{
+        background-color: #22b14c;
+        color:white;
+        margin: 5px
+    }
     @keyframes slideIn {
         from { transform: translateY(100%); opacity: 0; }
         to { transform: translateY(0); opacity: 1; }
@@ -318,7 +322,10 @@ document.addEventListener("DOMContentLoaded", function () {
 // Function for the sport dropdown
 function setSport(sportValue, sportText) {
     document.getElementById('selectedSport').value = sportValue;
-    document.getElementById('sportDropdown').textContent = sportText;
+    let dropdown = document.getElementById('sportDropdown');
+    dropdown.textContent = sportText;
+    dropdown.style.cssText = "background-color: #22b14c !important; color: white !important;";
 }
+
 </script>
 @endsection

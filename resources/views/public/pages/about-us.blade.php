@@ -2,7 +2,17 @@
 @section('content')
 <!-- Start: Team -->
 <div class="container py-4 py-xl-5">
-    <div class="row mb-4 mb-lg-5">
+
+    <div class="row mb-4 mb-lg-5 pt-5 pb-5 d-flex flex-column justify-content-center align-items-center">
+      <div class="col-md-12 col-lg-6 col-xl-6 text-center mx-auto w-100" data-aos="zoom-in" data-aos-duration="250" data-aos-delay="250">
+        <h2><strong><span style="color: rgb(34, 177, 76);">Our Story</span></strong></h2>
+        <p class="w-lg-75"><strong><em><span style="color: rgb(26, 26, 26);">Born from frustration with complicated field reservations, VictoryField started with a simple goal: make sports logistics easy. Founded by athletes who understood the problem firsthand, we've grown from managing a handful of local fields to connecting players with hundreds of facilities. We believe time is better spent playing sports than organizing them.</span></em></strong></p>
+      </div>
+      <div class="col-md-12 col-lg-6 col-xl-6 text-center pt-3 w-100" data-aos="fade-up" data-aos-duration="350" data-aos-delay="300">
+        <img src="{{ asset('assets/img/h2.png') }}" alt="Our Story - VictoryField journey" class="img-fluid rounded shadow" style="max-height: 400px;">
+      </div>
+    </div>
+    <div class="row mb-4 mb-lg-5 pt-5">
       <div class="col-md-12 col-lg-12 col-xl-12 text-center mx-auto" data-aos="zoom-in" data-aos-duration="250"
         data-aos-delay="250">
         <h2><strong><span style="color: rgb(34, 177, 76);">Our Team</span></strong></h2>

@@ -7,7 +7,7 @@
             <img class="w-100 d-block position-absolute h-100 fit-cover"
                 src="/assets/img/slid1.webp?h=612e2267d863dbd293490f5a0de4dcb7" alt="Slide Image" style="z-index: -1;">
             <div class="carousel-caption d-flex flex-column justify-content-center align-items-center h-100">
-                <h1 class="text-white-100 fw-bold">Welcome to Our Website</h1>
+                <h1 class=" fw-bold" style="color: rgb(255, 255, 255);">Welcome to Our Website</h1>
                 <p class="text-white">Enjoy the best experience in booking sports fields easily</p>
                 <a href="/reservation" class="btn mt-3" style="background-color: #21b04c; color: rgb(255, 255, 255); padding: 10px 20px; border-radius: 5px; font-size: 18px;">Book Now</a>
             </div>

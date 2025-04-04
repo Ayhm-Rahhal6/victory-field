@@ -26,6 +26,7 @@ class User extends Authenticatable
         'email',
         'password',
         'phone_number',
+        'role',
     ];
 
     /**
@@ -54,14 +55,31 @@ class User extends Authenticatable
     use HasFactory;
 
     public function profile()
-{
-    return $this->hasOne(Profile::class);
-}
+    {
+        return $this->hasOne(Profile::class);
+    }
 
 
-public function reservations()
-{
-return $this->hasMany(Reservation::class);
-}
+    public function reservations()
+    {
+        return $this->hasMany(Reservation::class);
+    }
 
+
+
+    public function scopeRegularUsers($query)
+    {
+        return $query->where('role', 'user');
+    }
+
+
+    public function isSuperAdmin()
+    {
+        return $this->role === 'super_admin';
+    }
+
+    public function isAdmin()
+    {
+        return $this->role === 'admin' || $this->isSuperAdmin();
+    }
 }

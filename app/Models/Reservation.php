@@ -29,4 +29,9 @@ class Reservation extends Model
     {
         return $this->belongsTo(Field::class);
     }
+
+    protected $casts = [
+        'start_time' => 'datetime:H:i',
+        'end_time' => 'datetime:H:i',
+    ];
 }
