@@ -21,7 +21,6 @@ use App\Http\Controllers\Admin\FieldController;
 
 
 //public routes
-
 Auth::routes();
 Route::get('/', function () {
     return view('welcome');
@@ -39,14 +38,6 @@ Route::post('/reservation', [ReservationController::class, 'confirmReservation']
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/profile',[ProfileController::class,'index'])->name('profile.show');
 Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
-
-
-
-
-
-
-
-
 
 
 //admin routes
