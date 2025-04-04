@@ -47,6 +47,13 @@
         </div>
     </div>
 
+    @if(session('booking_error'))
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            {{ session('booking_error') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
+
     <section class="py-5">
         @if($sports->isEmpty())
         <div class="alert alert-info text-center">
@@ -195,7 +202,7 @@ document.addEventListener('DOMContentLoaded', function() {
             // Auto-hide after 5 seconds
             setTimeout(() => {
                 toast.hide();
-            }, 5000);
+            }, 2000);
         @endif
     }
 });
@@ -272,7 +279,7 @@ document.addEventListener("DOMContentLoaded", function () {
             // Create form
             let form = document.createElement('form');
             form.method = 'POST';
-            form.action = "{{ route('reservations.store') }}";
+            form.action = "{{ route('public.reservations.store') }}";
             form.style.display = 'none';
 
             // Add CSRF token

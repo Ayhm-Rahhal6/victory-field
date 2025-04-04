@@ -33,9 +33,12 @@ Route::get('/contact', [ContactController::class, 'index'])->name('contact.index
 Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
 Route::post('/contact/send', [ContactController::class, 'send'])->name('contact.send');
 Route::get('/about',[PageController::class,'about'])->name('about');
+
 Route::get('/reservation',[ReservationController::class,'index'])->name('reservation.index');
 Route::post('/search-sports', [ReservationController::class, 'search'])->name('search.sports');
-Route::post('/reservation', [ReservationController::class, 'confirmReservation'])->name('reservations.store');
+Route::post('/reservation', [ReservationController::class, 'confirmReservation'])->name('public.reservations.store');
+// Route::post('/reservations', [ReservationController::class, 'confirmReservation'])->name('reservations.store');
+
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/profile',[ProfileController::class,'index'])->name('profile.show');
 Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
