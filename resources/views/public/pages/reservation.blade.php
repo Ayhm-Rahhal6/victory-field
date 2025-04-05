@@ -47,6 +47,13 @@
         </div>
     </div>
 
+    @if(session('booking_error'))
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            {{ session('booking_error') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
+
     <section class="py-5">
         @if($sports->isEmpty())
         <div class="alert alert-info text-center">
@@ -73,7 +80,7 @@
                         <div class="card border-dark">
                             <img class="img-fluid card-img-top w-100 d-block rounded-0"
                                 style="height: 200px; object-fit: cover;"
-                                src="{{ asset("/assets/img/{$field->image}") }}"
+                                src="{{ asset("storage/$field->image") }}"
                                 alt="{{ $field->name }}">
                             <div class="card-body">
                                 <h6>{{ $field->name }}</h6>
@@ -94,7 +101,9 @@
                                 <button class="btn btn-outline-dark btn-sm ms-auto" 
                                         type="button"
                                         style="border-radius: 10px; border-color: #22b14c; background: #22b14c;">
-                                    <span style="color: rgb(255, 255, 255);">Location</span>
+                                    <span style="color: rgb(255, 255, 255);"><a href="{{ $field->location }}" target="_blank" style="color: rgb(255, 255, 255);">
+                                        View Location
+                                    </a><n/span>
                                 </button>
                             </div>
                             
@@ -195,7 +204,7 @@ document.addEventListener('DOMContentLoaded', function() {
             // Auto-hide after 5 seconds
             setTimeout(() => {
                 toast.hide();
-            }, 5000);
+            }, 2000);
         @endif
     }
 });
@@ -272,7 +281,7 @@ document.addEventListener("DOMContentLoaded", function () {
             // Create form
             let form = document.createElement('form');
             form.method = 'POST';
-            form.action = "{{ route('reservations.store') }}";
+            form.action = "{{ route('public.reservations.store') }}";
             form.style.display = 'none';
 
             // Add CSRF token

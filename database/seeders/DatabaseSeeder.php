@@ -23,7 +23,7 @@ class DatabaseSeeder extends Seeder
             'email' => 'ayhm@gmail.com',
             'phone_number' => '0790578848',
             'password' => Hash::make('ayhm2001'), 
-            'role' => 'super_admin',   
+            'role' => 'super_admin', 
         ]);
     }
 }

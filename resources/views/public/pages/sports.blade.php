@@ -7,9 +7,11 @@
 <div class="container py-4 py-xl-5">
   @foreach ($sports as $sport)
     <div class="row row-cols-1 row-cols-md-2 mb-5">
-      <div class="col-lg-5" data-aos="fade-right" data-aos-duration="250" data-aos-delay="250"><img
-          class="rounded w-100 h-100 fit-cover" style="min-height: 300px;"
-          src="{{ $sport->image }}" width="300" height="200"></div>
+      <div class="col-lg-5" data-aos="fade-right" data-aos-duration="250" data-aos-delay="250">
+        <div class="col-lg-5" data-aos="fade-right" data-aos-duration="250" data-aos-delay="250"><img
+          class="rounded w-100 h-90 fit-cover" style="min-height: 300px; min-width: 450px;"
+          src="{{ asset('storage/' . $sport->image) }}" width="300" height="200"></div>
+    </div>
       <div class="col-lg-6 col-xl-6 col-xxl-6 d-flex flex-column justify-content-center p-4" data-aos="fade-left"
         data-aos-duration="250" data-aos-delay="250" style="height: 300px;">
         <div class="text-center text-md-start d-flex flex-column align-items-center align-items-md-start mb-4 mt-5"

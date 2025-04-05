@@ -84,13 +84,13 @@
             style="border-radius: 50px; width: 100%; height: 450px; overflow: hidden;">
             <img class="card-img-top w-100 d-block fit-cover"
                 style="height: 200px; border-top-left-radius: 50px; border-top-right-radius: 50px; object-fit: cover;"
-                src="{{ $item->image }}" width="264" height="200">
+                src="{{ asset("storage/$item->image") }}" width="264" height="200">
             <div class="card-body p-4 d-flex flex-column justify-content-between">
                 <h4 class="card-title" style="max-height: 60px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">{{ $item->title }}</h4>
                 <p class="card-text" style="max-height: 80px; overflow: hidden; text-overflow: ellipsis;">{{ $item->description }}</p>
                 <div class="d-flex align-items-center">
                     <img class="rounded-circle flex-shrink-0 me-3 fit-cover"
-                        width="50" height="50" src="{{ $item->logo }}">
+                        width="50" height="50" src="{{ asset("storage/$item->logo") }}">
                     <div>
                         <p class="fw-bold mb-0 mt-2">{{ $item->source }}</p>
                     </div>

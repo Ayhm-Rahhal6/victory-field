@@ -56,8 +56,8 @@
                     </div>
                     
                     <div class="mb-3">
-                        <label for="description" class="form-label">Description</label>
-                        <textarea class="form-control" id="description" name="description" rows="3">{{ $field->description }}</textarea>
+                        <label for="price_per_hour" class="form-label">Price</label>
+                        <input type="number" class="form-control" id="price_per_hour" name="price_per_hour" value="{{ $field->price_per_hour }}" required>
                     </div>
                     
                     <div class="mb-3">

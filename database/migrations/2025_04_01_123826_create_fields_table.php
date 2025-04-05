@@ -13,8 +13,7 @@ return new class extends Migration {
             $table->string('name');
             $table->string('sport_type');
             $table->string('location'); // سيخزن الروابط
-            $table->text('description')->nullable();
-            $table->string('image')->nullable();
+            $table->decimal('price_per_hour', 8, 2)->after('location')->nullable();            $table->string('image')->nullable();
             $table->timestamps();
         });
     }

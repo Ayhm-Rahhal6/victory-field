@@ -31,7 +31,7 @@ class FieldController extends Controller
             'name' => 'required|string|max:255',
             'sport_type' => 'required|string|max:255',
             'location' => 'required|url', // التحقق من أن الموقع هو رابط
-            'description' => 'nullable|string',
+            'price_per_hour' => 'nullable|integer',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
@@ -59,29 +59,36 @@ class FieldController extends Controller
 
     public function update(Request $request, Field $field)
     {
-        $request->validate([
+        $validated = $request->validate([
             'name' => 'required|string|max:255',
             'sport_type' => 'required|string|max:255',
             'location' => 'required|url',
-            'description' => 'nullable|string',
+            'price_per_hour' => 'required|numeric',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
-        $data = $request->except('image');
+        // تحديث الحقول الأساسية
+        $field->name = $validated['name'];
+        $field->sport_type = $validated['sport_type'];
+        $field->location = $validated['location'];
+        $field->price_per_hour = $validated['price_per_hour'];
 
+        // معالجة الصورة
         if ($request->hasFile('image')) {
+            // حذف الصورة القديمة إن وجدت
             if ($field->image) {
                 Storage::disk('public')->delete($field->image);
             }
-            $data['image'] = $request->file('image')->store('fields', 'public');
+            // حفظ الصورة الجديدة
+            $field->image = $request->file('image')->store('fields', 'public');
         }
 
-        $field->update($data);
+        // حفظ التغييرات
+        $field->save();
 
         return redirect()->route('admin.fields.index')
                         ->with('success', 'Field updated successfully');
     }
-
     public function destroy(Field $field)
     {
         if ($field->image) {
