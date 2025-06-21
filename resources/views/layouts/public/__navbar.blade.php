@@ -1,5 +1,5 @@
-<nav class="navbar navbar-expand-md navbar-fixed-top navigation-clean-button navbar-light"
-    style="background: #1a1a1a; border-radius: 0px; border-style: none; padding-top: 0; padding-bottom: 10px; position: relative; overflow: visible;"
+<nav class="navbar navbar-expand-md navbar-fixed-top navigation-clean-button navbar-light sticky-top"
+    style="background: #1a1a1a; border-radius: 0px; border-style: none; padding-top: 0; padding-bottom: 10px; z-index: 1030;"
     data-bs-smooth-scroll="true" data-bs-target="#navcol-1">
     <div class="container">
         <button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1">
@@ -17,6 +17,9 @@
                     <a class="nav-link {{ request()->is('/') ? 'active' : '' }}" href="/">Home</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link {{ request()->is('about') ? 'active' : '' }}" href="/about">About Us</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link {{ request()->is('sports') ? 'active' : '' }}" href="/sports">Sports</a>
                 </li>
                 <li class="nav-item">
@@ -24,9 +27,6 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link {{ request()->is('contact') ? 'active' : '' }}" href="/contact">Contact Us</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link {{ request()->is('about') ? 'active' : '' }}" href="/about">About Us</a>
                 </li>
             </ul>
             <ul class="navbar-nav ms-auto">

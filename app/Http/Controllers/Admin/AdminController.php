@@ -29,7 +29,6 @@ class AdminController extends Controller
     public function create()
     {
         return view('admin.admins.create');
-    // echo "You are not allowed to create a new admin from here, please contact the super admin.";
        
     }
 
@@ -56,17 +55,18 @@ class AdminController extends Controller
 
     public function edit(User $admin)
     {
-        // يمكن للمشرف العادي تعديل بياناته فقط
-        if(Auth::user()->role === 'admin' && Auth::id() !== $admin->id) {
-            abort(403);
+        $user=Auth::user();
+        if($user->role==='super_admin'){
+            return view('admin.admins.edit',compact('admin'));
         }
-
-        return view('admin.admins.edit', compact('admin'));
+        if($user->role==='admin'&&$user->id===$admin->id){
+            return view('admin.admins.edit',compact('admin'));
+        }
+            abort(403,'You can only edit your own admin account.');
     }
 
     public function update(Request $request, User $admin)
     {
-        // يمكن للمشرف العادي تعديل بياناته فقط
         if(Auth::user()->role === 'admin' && Auth::id() !== $admin->id) {
             abort(403);
         }

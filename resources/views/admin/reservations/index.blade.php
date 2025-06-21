@@ -50,9 +50,9 @@
                         </thead>
                         <tbody>
                             @foreach($reservations as $reservation)
-                            <tr>
-                                <td>{{ $loop->iteration }}</td>
-                                <td>{{ $reservation->user->name }}</td>
+                            <tr class="text-white">
+                                <td style="color: #22b14c;">{{ ($reservations->currentPage() - 1) * $reservations->perPage() + $loop->iteration }}</td>
+                                <td>{{ $reservation->user->name ?? 'N/A' }}</td>
                                 <td>{{ $reservation->user->phone_number ?? 'N/A' }}</td>
                                 <td>{{ $reservation->field->name }}</td>
                                 <td>{{ $reservation->field->sport_type }}</td>
@@ -67,8 +67,12 @@
                     </table>
                 </div>
                 
-                <div class="d-flex justify-content-center mt-3">
-                    {{ $reservations->links() }}
+                <div class="d-flex justify-content-center mt-3" >
+                    <nav aria-label="Page navigation">
+                        <ul class="pagination pagination-sm ">
+                            {{ $reservations->links('pagination::bootstrap-4') }}
+                        </ul>
+                    </nav>
                 </div>
             </div>
         </div>

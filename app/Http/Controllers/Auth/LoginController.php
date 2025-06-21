@@ -51,13 +51,12 @@ class LoginController extends Controller
     if (Auth::attempt($credentials)) {
         $request->session()->regenerate();
     
-        // توجيه المستخدم حسب الدور
         if (Auth::user()->role === 'super_admin') {
-            return redirect('/admin'); // أو أي مسار خاص بالـ super admin
+            return redirect('/admin'); 
         } elseif (Auth::user()->role === 'admin') {
-            return redirect('/admin'); // مسار الـ admin العادي
+            return redirect('/admin'); 
         } else {
-            return redirect('/'); // الصفحة الرئيسية للمستخدمين العاديين
+            return redirect('/');
         }
     }
 
@@ -65,4 +64,5 @@ class LoginController extends Controller
         'email' => 'These credentials do not match our records.',
     ]);
 }
+
 }

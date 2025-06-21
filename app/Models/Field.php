@@ -15,6 +15,7 @@ class Field extends Model
         'image',
         'price_per_hour',
         'location',
+        'description',
         'sport_type'
     ];
 

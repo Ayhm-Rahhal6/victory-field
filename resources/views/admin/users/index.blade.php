@@ -51,6 +51,7 @@
                         <thead>
                             <tr class="text-white">
                                 <th scope="col">#</th>
+                                <th scope="col">Image</th>
                                 <th scope="col">Name</th>
                                 <th scope="col">Email</th>
                                 <th scope="col">Phone</th>
@@ -60,21 +61,28 @@
                         </thead>
                         <tbody>
                             @forelse ($users as $user)
-                            <tr>
+                            <tr class="text-white">
                                 <td>{{ $loop->iteration + ($users->currentPage() - 1) * $users->perPage() }}</td>
+                                <td style="width: 80px;">
+                                    @if($user->profile_picture)
+                                    <div class="ratio ratio-1x1">
+                                        <img src="{{ asset('storage/' . $user->profile_picture) }}" 
+                                            class="img-thumbnail rounded-circle"
+                                            style="object-fit: cover;">
+                                    </div>
+                                    @else
+                                    <div class="ratio ratio-1x1">
+                                        <div class="bg-light d-flex align-items-center justify-content-center rounded-circle text-muted">
+                                            <i class="fas fa-user"></i>
+                                        </div>
+                                    </div>
+                                    @endif
+                                </td>
                                 <td>{{ $user->name }}</td>
                                 <td>{{ $user->email }}</td>
                                 <td>{{ $user->phone_number ?? 'N/A' }}</td>
                                 <td>{{ $user->created_at->format('M d, Y H:i') }}</td>
                                 <td class="d-flex gap-2">
-                                    
-                                    <a href="#" 
-                                    class="btn btn-sm btn-warning show-reservations" 
-                                    data-user-id="{{ $user->id }}"
-                                    data-bs-toggle="modal" 
-                                    data-bs-target="#reservationsModal">
-                                    <i class="fas fa-calendar-alt"></i> Reservations
-                                 </a>
                                     
                                     <form action="{{ route('admin.users.destroy', $user->id) }}" method="POST">
                                         @csrf
@@ -95,10 +103,13 @@
                         </tbody>
                     </table>
                     
-                    <!-- Pagination -->
-                    <div class="d-flex justify-content-center mt-3">
-                        {{ $users->links() }}
-                    </div>
+                   <div class="d-flex justify-content-center mt-3" >
+                    <nav aria-label="Page navigation">
+                        <ul class="pagination pagination-sm ">
+                            {{ $users->links('pagination::bootstrap-4') }}
+                        </ul>
+                    </nav>
+                </div>
                 </div>
             </div>
         </div>
@@ -106,28 +117,6 @@
         
     </div>
     <!-- Content End -->
-</div>
-
-<div class="modal-body">
-    <div class="table-responsive">
-        <table class="table table-bordered table-hover">
-            <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Field Name</th>
-                    <th>Sport Type</th>
-                    <th>Start Time</th>
-                    <th>End Time</th>
-                    <th>Duration</th>
-                    <th>Total Price</th>
-                    <th>Status</th>
-                </tr>
-            </thead>
-            <tbody id="reservationsTableBody">
-                <!-- سيتم ملؤه عبر AJAX -->
-            </tbody>
-        </table>
-    </div>
 </div>
 
 @section('scripts')

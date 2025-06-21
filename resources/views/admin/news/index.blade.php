@@ -29,10 +29,10 @@
 
         <div class="container-fluid pt-4 px-4">
             <div class="bg-secondary rounded p-4">
-                <div class="d-flex align-items-center justify-content-between mb-4">
+                <div class="d-flex align-items-center justify-content-between mb-4" >
                     <h6 class="mb-0">News List</h6>
-                    <a href="{{ route('admin.news.create') }}" class="btn btn-primary">
-                        <i class="fas fa-plus me-2"></i>Add News
+                    <a href="{{ route('admin.news.create') }}" class="btn btn-primary" style="background-color: #22b14c; border: #22b14c;">
+                        <i class="fas fa-plus me-2" ></i>Add News
                     </a>
                 </div>
                 
@@ -48,32 +48,32 @@
                         <thead>
                             <tr class="text-white">
                                 <th>#</th>
-                                <th>Title</th>
                                 <th>Image</th>
                                 <th>Logo</th>
+                                <th>Title</th>
                                 <th>Source</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
                             @forelse ($news as $item)
-                            <tr>
-                                <td>{{ $loop->iteration }}</td>
-                                <td>{{ $item->title }}</td>
-                                <td>
+                            <tr class="text-white">
+                                <td class="text-success">{{ $loop->iteration }}</td>
+                                <td style="width: 50px; height: 50px;">
                                     @if($item->image)
                                     <img src="{{ asset('storage/' . $item->image) }}" width="50" class="img-thumbnail">
                                     @else
                                     No Image
                                     @endif
                                 </td>
-                                <td>
+                                <td style="width: 50px; height: 50px;">
                                     @if($item->logo)
                                     <img src="{{ asset('storage/' . $item->logo) }}" width="30" class="img-thumbnail">
                                     @else
                                     No Logo
                                     @endif
                                 </td>
+                                <td>{{ $item->title }}</td>
                                 <td>{{ $item->source }}</td>
                                 <td class="d-flex gap-2">
                                     <a href="{{ route('admin.news.edit', $item->id) }}" class="btn btn-sm btn-info">

@@ -31,7 +31,7 @@
             <div class="bg-secondary rounded p-4">
                 <div class="d-flex align-items-center justify-content-between mb-4">
                     <h6 class="mb-0">Sports List</h6>
-                    <a href="{{ route('admin.sports.create') }}" class="btn btn-primary">
+                    <a href="{{ route('admin.sports.create') }}" class="btn btn-primary" style="background-color: #22b14c; border: #22b14c;">
                         <i class="fas fa-plus me-2"></i>Add New Sport
                     </a>
                 </div>
@@ -48,8 +48,8 @@
                         <thead>
                             <tr class="text-white">
                                 <th>#</th>
-                                <th>Title</th>
                                 <th>Image</th>
+                                <th>Title</th>
                                 <th>Info Link</th>
                                 <th>Rule Link</th>
                                 <th>Actions</th>
@@ -59,7 +59,6 @@
                             @forelse ($sports as $sport)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ $sport->title }}</td>
                                 <td>
                                     @if($sport->image)
                                     <img src="{{ asset('storage/' . $sport->image) }}" width="50" height="50" class="img-thumbnail">
@@ -67,6 +66,7 @@
                                     No Image
                                     @endif
                                 </td>
+                                <td>{{ $sport->title }}</td>
                                 <td>{{ $sport->link_info ? 'Yes' : 'No' }}</td>
                                 <td>{{ $sport->link_rule ? 'Yes' : 'No' }}</td>
                                 <td class="d-flex gap-2">

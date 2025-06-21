@@ -64,7 +64,7 @@
                         <input type="password" class="form-control" id="password_confirmation" name="password_confirmation" required>
                     </div>
                     
-                    <button type="submit" class="btn btn-primary">Create Admin</button>
+                    <button type="submit" class="btn btn-primary" style="background-color: #22b14c; border: #22b14c;">Create Admin</button>
                 </form>
             </div>
         </div>

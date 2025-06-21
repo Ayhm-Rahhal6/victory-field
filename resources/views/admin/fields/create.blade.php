@@ -32,7 +32,7 @@
         <div class="container-fluid pt-4 px-4">
             <div class="bg-secondary rounded p-4">
                 <div class="d-flex align-items-center justify-content-between mb-4">
-                    <h6 class="mb-0">Create New Field</h6>
+                    <h6 class="mb-0 text-bg-danger">Create New Field</h6>
                     <a href="{{ route('admin.fields.index') }}" class="btn btn-light">
                         <i class="fas fa-arrow-left me-2"></i>Back to List
                     </a>
@@ -41,32 +41,42 @@
                 <form method="POST" action="{{ route('admin.fields.store') }}" enctype="multipart/form-data">
                     @csrf
                     
-                    <div class="mb-3">
+                    <div class="mb-3 text-white">
                         <label for="name" class="form-label">Field Name</label>
                         <input type="text" class="form-control" id="name" name="name" required>
                     </div>
                     
-                    <div class="mb-3">
+                    <div class="mb-3 text-white">
                         <label for="sport_type" class="form-label">Sport Type</label>
                         <input type="text" class="form-control" id="sport_type" name="sport_type" required>
                     </div>
+
+                    <div class="mb-3 text-white">
+                        <label for="price_per_hour" class="form-label">Price Per Hour (JD)</label>
+                        <input type="number" step="0.01" class="form-control" id="price_per_hour" name="price_per_hour" required>
+                    </div>
                     
-                    <div class="mb-3">
+                    
+                    <div class="mb-3 text-white">
                         <label for="location" class="form-label">Location URL</label>
                         <input type="url" class="form-control" id="location" name="location" required placeholder="https://maps.google.com/...">
                     </div>
                     
-                    <div class="mb-3">
+                    <div class="mb-3 text-white">
                         <label for="description" class="form-label">Description</label>
                         <textarea class="form-control" id="description" name="description" rows="3"></textarea>
                     </div>
                     
-                    <div class="mb-3">
+                    <div class="mb-3 text-white">
                         <label for="image" class="form-label">Field Image</label>
                         <input type="file" class="form-control" id="image" name="image">
                     </div>
+
+
+                
+
                     
-                    <button type="submit" class="btn btn-primary">Create Field</button>
+                    <button type="submit" class="btn btn-primary" style="background-color: #22b14c; border: #22b14c;">Create Field</button>
                 </form>
             </div>
         </div>

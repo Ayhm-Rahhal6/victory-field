@@ -24,34 +24,34 @@
                 <span class="text-muted small">{{ ucfirst(Auth::user()->role) }}</span>
             </div>
         </div>
-        <div class="navbar-nav w-100">
-            <a href="{{ route('dashboard') }}" class="nav-item nav-link {{ request()->routeIs('admin.dashboard.*') ? 'active' : '' }}">
-                <i class="fa fa-tachometer-alt me-2"></i>Dashboard
+        <div class="navbar-nav w-100 ">
+            <a href="{{ route('dashboard') }}" class="nav-item nav-link text-white {{ request()->routeIs('admin.dashboard.*') ? 'active' : '' }}">
+                <i class="fa fa-tachometer-alt me-2 text-success" ></i>Dashboard
             </a>
             
-            <a href="{{ route('admin.users.index') }}" class="nav-item nav-link {{ request()->routeIs('admin.users.*') ? 'active' : '' }}">
-                <i class="fa fa-users me-2"></i>Users
+            <a href="{{ route('admin.users.index') }}" class="nav-item nav-link text-white {{ request()->routeIs('admin.users.*') ? 'active' : '' }}">
+                <i class="fa fa-users me-2 text-success"></i>Users
             </a>
             
-             <a href="{{ route('admin.admins.index') }}" class="nav-item nav-link {{ request()->routeIs('admin.admins.*') ? 'active' : '' }}">
-                <i class="fa fa-user-shield me-2"></i>Admins
+             <a href="{{ route('admin.admins.index') }}" class="nav-item nav-link text-white {{ request()->routeIs('admin.admins.*') ? 'active' : '' }}">
+                <i class="fa fa-user-shield me-2 text-success"></i>Admins
             </a>
             
-            <a href="{{ route('admin.sports.index') }}" class="nav-item nav-link {{ request()->routeIs('admin.sports.*') ? 'active' : '' }}">
-                <i class="fa fa-futbol me-2"></i>Sports
+            <a href="{{ route('admin.sports.index') }}" class="nav-item nav-link text-white {{ request()->routeIs('admin.sports.*') ? 'active' : '' }}">
+                <i class="fa fa-futbol me-2 text-success"></i>Sports
             </a>
 
 
-            <a href="{{ route('admin.news.index') }}" class="nav-item nav-link {{ request()->routeIs('admin.news.*') ? 'active' : '' }}">
-                <i class="fas fa-newspaper me-2"></i>News
+            <a href="{{ route('admin.news.index') }}" class="nav-item nav-link text-white {{ request()->routeIs('admin.news.*') ? 'active' : '' }}">
+                <i class="fas fa-newspaper me-2 text-success"></i>News
             </a>
             
-            <a href="{{ route('admin.reservations.index') }}" class="nav-item nav-link {{ request()->routeIs('admin.reservations.*') ? 'active' : '' }}">
-                <i class="fas fa-calendar-check me-2"></i>Reservations
+            <a href="{{ route('admin.reservations.index') }}" class="nav-item nav-link text-white {{ request()->routeIs('admin.reservations.*') ? 'active' : '' }}">
+                <i class="fas fa-calendar-check me-2 text-success"></i>Reservations
 
             
-                <a href="{{ route('admin.fields.index') }}" class="nav-item nav-link {{ request()->routeIs('admin.fields.*') ? 'active' : '' }}">
-                    <i class="fa fa-futbol me-2"></i>Fields
+                <a href="{{ route('admin.fields.index') }}" class="nav-item nav-link text-white {{ request()->routeIs('admin.fields.*') ? 'active' : '' }}">
+                    <i class="fa fa-futbol me-2 text-success"></i>Fields
                 </a>
         </div>
     </nav>

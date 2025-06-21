@@ -10,7 +10,6 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    // في ملف database/migrations/xxxx_create_sports_table.php
     public function up()
     {
         Schema::create('sports', function (Blueprint $table) {
@@ -25,9 +24,6 @@ return new class extends Migration
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('sports');

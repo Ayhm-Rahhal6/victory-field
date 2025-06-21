@@ -76,7 +76,7 @@
                         <input type="url" class="form-control" id="link_rule" name="link_rule" value="{{ $sport->link_rule }}">
                     </div>
                     
-                    <button type="submit" class="btn btn-primary">Update Sport</button>
+                    <button type="submit" class="btn btn-primary" style="background-color: #22b14c; border: #22b14c;">Update Sport</button>
                 </form>
             </div>
         </div>

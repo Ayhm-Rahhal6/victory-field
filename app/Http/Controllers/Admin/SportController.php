@@ -36,7 +36,6 @@ class SportController extends Controller
         'link_rule' => 'nullable|url'
     ]);
 
-    // معالجة الصورة إذا وجدت
     if($request->hasFile('image')) {
         $validated['image'] = $request->file('image')->store('sports', 'public');
     }
@@ -44,7 +43,7 @@ class SportController extends Controller
     Sport::create($validated);
 
     return redirect()->route('admin.sports.index')
-                   ->with('success', 'تمت إضافة الرياضة بنجاح');
+                   ->with('success', 'Sport created successfully');
 }
     public function show(Sport $sport)
     {
@@ -70,7 +69,6 @@ class SportController extends Controller
         $data = $request->except('image');
 
         if ($request->hasFile('image')) {
-            // حذف الصورة القديمة إذا وجدت
             if ($sport->image) {
                 Storage::disk('public')->delete($sport->image);
             }

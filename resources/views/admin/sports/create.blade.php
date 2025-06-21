@@ -28,7 +28,12 @@
 
         <div class="container-fluid pt-4 px-4">
             <div class="bg-secondary rounded p-4">
-                <h4 class="mb-4">Add a new sport</h4>
+                <div class="d-flex align-items-center justify-content-between mb-4">
+                    <h6 class="mb-0">Create New Sport</h6>
+                    <a href="{{ route('admin.sports.index') }}" class="btn btn-light">
+                        <i class="fas fa-arrow-left me-2"></i>Back to List
+                    </a>
+                </div>
                 
                 <form action="{{ route('admin.sports.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
@@ -63,7 +68,7 @@
                         <input type="url" class="form-control" id="link_rule" name="link_rule">
                     </div>
                     
-                    <button type="submit" class="btn btn-primary">Create</button>
+                    <button type="submit" class="btn btn-primary" style="background-color: #22b14c; border: #22b14c;">Create</button>
                 </form>
             </div>
         </div>

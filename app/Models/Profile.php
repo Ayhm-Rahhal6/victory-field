@@ -6,6 +6,12 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class Profile extends Model
 {
+
+    protected $fillable = [
+        'user_id',
+        'profile_picture',
+        'history_reservation'
+    ];
     public function user()
     {
         return $this->belongsTo(User::class);

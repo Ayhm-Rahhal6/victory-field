@@ -14,16 +14,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-            Schema::create('users', function (Blueprint $table) {
-                $table->id();
-                $table->string('name');
-                $table->string('email')->unique();
-                $table->string('phone_number')->unique();
-                $table->string('password');
-                $table->enum('role', ['super_admin', 'admin', 'user'])->default('user');
-                $table->rememberToken();
-                $table->timestamps();
-            });
+        Schema::create('users', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->string('email')->unique();
+            $table->string('phone_number')->unique();
+            $table->string('password');
+            $table->string('profile_picture')->nullable();
+            $table->enum('role', ['super_admin', 'admin', 'user'])->default('user');
+            $table->rememberToken();
+            $table->timestamps();
+        });
         
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {

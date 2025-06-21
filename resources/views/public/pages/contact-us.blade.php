@@ -1,6 +1,6 @@
 @extends('layouts.public')
 @section('content')
- <!-- Start: Contact Details -->
+
  <section class="position-relative py-4 py-xl-5 pb-5 mb-5 pt-5 mt-4"
  style="--bs-light: #f8f9fa;--bs-light-rgb: 248,249,250;--bs-body-bg: #03ea0c#03ea0c#03ea0c;">
  <div class="container position-relative">
@@ -41,8 +41,8 @@
            <div class="px-2">
              <h6 class="mb-0" style="color: #1a1a1a;font-weight: bold;font-style: italic;">Email</h6>
              <p class="mb-0" style="color: rgb(255,255,255);"><a href="mailto:ayhmrahhal66@gmail.com"
-                 target="_blank"><strong><span
-                     style="color: rgb(34, 177, 76);">ayhmrahhal66@gmail.com</span></strong></a></p>
+                 target="_blank"><strong ><span
+                     style="color: rgb(34, 177, 76);text-decoration: none !important;">ayhmrahhal66@gmail.com</span></strong></a></p>
            </div>
          </div>
          <div class="d-flex align-items-center p-3">
@@ -65,34 +65,67 @@
      <div class="col-md-6 col-lg-8 col-xl-7" data-aos="fade-left" data-aos-duration="250" data-aos-delay="250"
        style="border-top-color: #22b14c;">
        <div>
-        <form class="p-3 p-xl-4" method="post" action="{{ route('contact.send') }}">
-          @csrf <!-- حماية من هجمات CSRF -->
+
+        <form class="p-3 p-xl-4" method="post" action="{{ route('contact.send') }}" id="contactForm">
+          @csrf
+          @if(session('success'))
+              <div class="alert alert-success">{{ session('success') }}</div>
+          @endif
+          @if($errors->any())
+              <div class="alert alert-danger">
+                  <ul class="mb-0">
+                      @foreach($errors->all() as $error)
+                          <li>{{ $error }}</li>
+                      @endforeach
+                  </ul>
+              </div>
+          @endif
+      
           <div class="mb-3">
-              <input class="form-control" type="text" id="name-1" name="name" placeholder="Name..."
-                  required style="border-radius: 20px;color: #1a1a1a;border-width: 2px;border-color: #22b14c;border-top-color: #22b14c;font-style: italic;">
+              <input class="form-control" type="text" name="name" placeholder="Name..."
+                  required style="border-radius: 20px;color: #1a1a1a;border-width: 2px;border-color: #22b14c;font-style: italic;">
           </div>
           <div class="mb-3">
-              <input class="form-control" type="email" id="email-1" name="email" placeholder="Email..."
-                  required style="border-radius: 20px;color: #1a1a1a;border-width: 2px;border-color: #22b14c;border-top-color: #22b14c;font-style: italic;">
+              <input class="form-control" type="email" name="email" placeholder="Email..."
+                  required style="border-radius: 20px;color: #1a1a1a;border-width: 2px;border-color: #22b14c;font-style: italic;">
           </div>
           <div class="mb-3">
-              <input class="form-control" type="text" id="subject-1" name="subject" placeholder="Subject..."
-                  required style="border-radius: 20px;color: #1a1a1a;border-width: 2px;border-color: #22b14c;border-top-color: #22b14c;font-style: italic;">
+              <input class="form-control" type="text" name="subject" placeholder="Subject..."
+                  required style="border-radius: 20px;color: #1a1a1a;border-width: 2px;border-color: #22b14c;font-style: italic;">
           </div>
           <div class="mb-3">
-              <textarea class="form-control" id="message-1" name="message" rows="6" placeholder="Message..."
-                  required style="border-radius: 20px;color: #1a1a1a;border: 2px solid #22b14c;border-top-color: #22b14c;font-style: italic;"></textarea>
+              <textarea class="form-control" name="message" rows="6" placeholder="Message..."
+                  required style="border-radius: 20px;color: #1a1a1a;border: 2px solid #22b14c;font-style: italic;"></textarea>
           </div>
           <div>
               <button class="btn btn-primary d-block w-100" type="submit"
                   style="background: #22b14c;border-radius: 20px;">Send</button>
           </div>
       </form>
+      
+      
        </div>
      </div>
    </div>
  </div>
 </section>
-<!-- End: Contact Details -->
+
+
+ <script>
+  setTimeout(() => {
+      const alerts = document.querySelectorAll('.alert');
+      alerts.forEach(alert => {
+          alert.style.transition = "opacity 0.5s ease";
+          alert.style.opacity = "0";
+          setTimeout(() => alert.remove(), 500); 
+      });
+  }, 3000);
+</script> 
+
+
+
+
+
+
 
 @endsection

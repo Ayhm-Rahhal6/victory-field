@@ -32,7 +32,7 @@
             <div class="bg-secondary rounded p-4">
                 <div class="d-flex align-items-center justify-content-between mb-4">
                     <h6 class="mb-0">Fields List</h6>
-                    <a href="{{ route('admin.fields.create') }}" class="btn btn-primary">
+                    <a href="{{ route('admin.fields.create') }}" class="btn btn-primary" style="background-color: #22b14c; border: #22b14c;">
                         <i class="fas fa-plus me-2"></i>Add Field
                     </a>
                 </div>
@@ -49,29 +49,34 @@
                         <thead>
                             <tr class="text-white">
                                 <th>#</th>
+                                <th>Image</th>
                                 <th>Name</th>
                                 <th>Sport Type</th>
+                                <th>Price</th>
                                 <th>Location</th>
-                                <th>Image</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach($fields as $field)
-                            <tr>
-                                <td>{{ ($fields->currentPage() - 1) * $fields->perPage() + $loop->iteration }}</td>                                <td>{{ $field->name }}</td>
-                                <td>{{ $field->sport_type }}</td>
-                                <td>
-                                    <a href="{{ $field->location }}" target="_blank" class="btn btn-sm btn-link">
-                                        View Location
-                                    </a>
-                                </td>
-                                <td>
+                            <tr class="text-white">
+                                <td class="text-success">{{ ($fields->currentPage() - 1) * $fields->perPage() + $loop->iteration }}</td>
+                                <td style="width: 50px; height: 50px;">
                                     @if($field->image)
-                                    <img src="{{ asset('storage/' . $field->image) }}" width="50" class="img-thumbnail">
+                                    <img src="{{ asset('storage/' . $field->image) }}" 
+                                        style="width: 50px; height: 50px; object-fit: cover; display: block;" 
+                                        class="img-thumbnail">
                                     @else
                                     No Image
                                     @endif
+                                </td>
+                                <td>{{ $field->name }}</td>
+                                <td>{{ $field->sport_type }}</td>
+                                <td>{{ $field->price_per_hour }} JD</td> <!-- السعر هون -->
+                                <td class="text-success">
+                                    <a href="{{ $field->location }}" target="_blank" class="btn btn-sm btn-link text-success">
+                                        View Location
+                                    </a>
                                 </td>
                                 <td class="d-flex gap-2">
                                     <a href="{{ route('admin.fields.edit', $field->id) }}" class="btn btn-sm btn-info">
@@ -88,12 +93,13 @@
                             </tr>
                             @endforeach
                         </tbody>
+                        
                     </table>
                 </div>
                 
-                <div class="d-flex justify-content-center mt-3">
+                <div class="d-flex justify-content-center mt-3" >
                     <nav aria-label="Page navigation">
-                        <ul class="pagination pagination-sm">
+                        <ul class="pagination pagination-sm ">
                             {{ $fields->links('pagination::bootstrap-4') }}
                         </ul>
                     </nav>

@@ -79,7 +79,7 @@
                         <input type="text" class="form-control" id="source" name="source" value="{{ $news->source }}" required>
                     </div>
                     
-                    <button type="submit" class="btn btn-primary">Update News</button>
+                    <button type="submit" class="btn btn-primary" style="background-color: #22b14c; border: #22b14c;">Update News</button>
                 </form>
             </div>
         </div>

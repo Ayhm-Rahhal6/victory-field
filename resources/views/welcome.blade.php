@@ -1,29 +1,24 @@
 @extends('layouts.public')
 @section('content')
+
+
   <!-- Start: Hero Carousel -->
   <div class="carousel slide" data-bs-ride="carousel" id="carousel-1" style="height: 600px;">
     <div class="carousel-inner h-100">
-        <div class="carousel-item active h-100" style="filter: brightness(55%);">
-            <img class="w-100 d-block position-absolute h-100 fit-cover"
-                src="/assets/img/slid1.webp?h=612e2267d863dbd293490f5a0de4dcb7" alt="Slide Image" style="z-index: -1;">
+        <div class="carousel-item active h-100">
+            <div class="w-100 h-100 position-absolute" style="filter: brightness(55%); z-index: -1;">
+                <img class="w-100 h-100 fit-cover" 
+                     src="/assets/img/slid1.webp?h=612e2267d863dbd293490f5a0de4dcb7" 
+                     alt="Slide Image">
+            </div>
             <div class="carousel-caption d-flex flex-column justify-content-center align-items-center h-100">
-                <h1 class=" fw-bold" style="color: rgb(255, 255, 255);">Welcome to Our Website</h1>
-                <p class="text-white">Enjoy the best experience in booking sports fields easily</p>
-                <a href="/reservation" class="btn mt-3" style="background-color: #21b04c; color: rgb(255, 255, 255); padding: 10px 20px; border-radius: 5px; font-size: 18px;">Book Now</a>
+                <h1 class="fw-bold" style="color: white; text-shadow: 2px 2px 4px rgba(0,0,0,0.8);">Welcome to Victory Field</h1>
+                <p class="text-white" style="text-shadow: 2px 2px 4px rgba(0,0,0,0.8);">Enjoy the best experience in booking sports fields easily</p>
+                <a href="/reservation" class="btn mt-3" style="background-color: #21b04c; color: white; padding: 10px 20px; border-radius: 5px; font-size: 18px;">Book Now</a>
             </div>
         </div>
     </div>
-    <div>
-        <a class="carousel-control-prev" href="#carousel-1" role="button" data-bs-slide="prev">
-            <span class="visually-hidden">Previous</span>
-        </a>
-        <a class="carousel-control-next" href="#carousel-1" role="button" data-bs-slide="next">
-            <span class="visually-hidden">Next</span>
-        </a>
-    </div>
-    <div class="carousel-indicators"></div>
 </div>
-
 
   <!-- End: Hero Carousel -->
 
@@ -82,7 +77,7 @@
       <div class="col-lg-4" data-aos="zoom-in-up">
         <div class="card"
             style="border-radius: 50px; width: 100%; height: 450px; overflow: hidden;">
-            <img class="card-img-top w-100 d-block fit-cover"
+            <img class="card-img-top w-100 d-block fit-cover lazy"
                 style="height: 200px; border-top-left-radius: 50px; border-top-right-radius: 50px; object-fit: cover;"
                 src="{{ asset("storage/$item->image") }}" width="264" height="200">
             <div class="card-body p-4 d-flex flex-column justify-content-between">
@@ -106,13 +101,12 @@
   
   <!-- Start: Hero Features (Material Design Animation) -->
   <section class="mt-5">
-    <div class="row mb-5" data-aos="zoom-in" data-aos-duration="250" data-aos-delay="250">
-      <div class="col-md-11 col-lg-10 col-xl-9 text-center mx-auto">
-        <h2>Upcoming <strong><span style="color: rgb(34, 177, 76);">Updates</span></strong></h2>
+     <div class="col-md-11 col-lg-10 col-xl-9 text-center mx-auto">
+        <h2>Latest <strong><span style="color: #21b04c; margin-bottom: 90px !important;">News</span></strong></h2>
       </div>
-    </div>
+   
     <div data-aos="slide-up" data-aos-duration="250" data-aos-delay="250"
-      style="height: 600px;background: url(&quot;https://www.architectandinteriorsindia.com/cloud/2022/09/23/VegasSports-15-1200x900.jpg&quot;) center / cover;">
+      style="height: 500px;background: url(&quot;https://www.architectandinteriorsindia.com/cloud/2022/09/23/VegasSports-15-1200x900.jpg&quot;) center / cover; margin-top: 90px;"></div>
     </div>
     <div class="container h-100 position-relative" style="top: -50px;">
       <div class="row gy-5 gy-lg-0 row-cols-1 row-cols-md-2 row-cols-lg-3">
@@ -186,38 +180,38 @@
   
   
  <!-- Start: Stats -->
-<div class="container py-4 py-xl-5 mb-5" style="background: #e0e0e0;">
-  <div class="row gy-4 row-cols-2 row-cols-md-4 mt-0">
-      <div class="col-lg-4" data-aos="zoom-out-right" data-aos-duration="250" data-aos-delay="250">
-          <div class="text-center d-flex flex-column justify-content-center align-items-center py-3">
-              <div class="bs-icon-xl bs-icon-circle bs-icon-primary d-flex flex-shrink-0 justify-content-center align-items-center d-inline-block mb-2 bs-icon lg" style="background: #22b14c;">
+<div class="container py-4 py-xl-5 mb-5" style="background: #e0e0e0; margin-right: -20px !important; margin-left: -20px !important;">
+  <div class="row gy-4 row-cols-2 row-cols-md-4 mt-0" style="margin-right: 0px !important; margin-left: 0px !important;">
+      <div class="col-lg-4" data-aos="zoom-out-right" data-aos-duration="250" data-aos-delay="250" style="margin-right: 0px !important; margin-left: 0px !important;">
+          <div class="text-center d-flex flex-column justify-content-center align-items-center py-3" style="margin-right: 0px !important; margin-left: 0px !important;">
+              <div class="bs-icon-xl bs-icon-circle bs-icon-primary d-flex flex-shrink-0 justify-content-center align-items-center d-inline-block mb-2 bs-icon lg" style="background: #22b14c; margin-right: 0px !important; margin-left: 0px !important;">
                   <i class="fa fa-users"></i>
               </div>
-              <div class="px-3">
-                  <h2 class="fw-bold mb-0">{{ $usersCount }}+</h2>
-                  <p class="mb-0">Users</p>
+              <div class="px-3" style="margin-right: 0px !important; margin-left: 0px !important;">
+                  <h2 class="fw-bold mb-0" style="margin-right: 0px !important; margin-left: 0px !important;">{{ $usersCount }}+</h2>
+                  <p class="mb-0" style="margin-right: 0px !important; margin-left: 0px !important;">Users</p>
               </div>
           </div>
       </div>
-      <div class="col-lg-4" data-aos="zoom-out-up" data-aos-duration="250" data-aos-delay="250">
-          <div class="text-center d-flex flex-column justify-content-center align-items-center py-3">
-              <div class="bs-icon-xl bs-icon-circle bs-icon-primary d-flex flex-shrink-0 justify-content-center align-items-center d-inline-block mb-2 bs-icon lg" style="background: #22b14c;">
-                  <i class="fa fa-ticket"></i>
+      <div class="col-lg-4" data-aos="zoom-out-up" data-aos-duration="250" data-aos-delay="250" style="margin-right: 0px !important; margin-left: 0px !important;">
+          <div class="text-center d-flex flex-column justify-content-center align-items-center py-3" style="margin-right: 0px !important; margin-left: 0px !important;">
+              <div class="bs-icon-xl bs-icon-circle bs-icon-primary d-flex flex-shrink-0 justify-content-center align-items-center d-inline-block mb-2 bs-icon lg" style="background: #22b14c; margin-right: 0px !important; margin-left: 0px !important;">
+                  <i class="fa fa-ticket" style="margin-right: 0px !important; margin-left: 0px !important;"></i>
               </div>
-              <div class="px-3">
-                  <h2 class="fw-bold mb-0">{{ $reservationsCount }}+</h2>
-                  <p class="mb-0">Reservations</p>
+              <div class="px-3" style="margin-right: 0px !important; margin-left: 0px !important;">
+                  <h2 class="fw-bold mb-0" style="margin-right: 0px !important; margin-left: 0px !important;">{{ $reservationsCount }}+</h2>
+                  <p class="mb-0" style="margin-right: 0px !important; margin-left: 0px !important;">Reservations</p>
               </div>
           </div>
       </div>
-      <div class="col-lg-4" data-aos="zoom-out-left" data-aos-duration="250" data-aos-delay="250">
-          <div class="text-center d-flex flex-column justify-content-center align-items-center py-3">
-              <div class="bs-icon-xl bs-icon-circle bs-icon-primary d-flex flex-shrink-0 justify-content-center align-items-center d-inline-block mb-2 bs-icon lg" style="background: #22b14c;">
+      <div class="col-lg-4" data-aos="zoom-out-left" data-aos-duration="250" data-aos-delay="250" style="margin-right: 0px !important; margin-left: 0px !important;">
+          <div class="text-center d-flex flex-column justify-content-center align-items-center py-3" style="margin-right: 0px !important; margin-left: 0px !important;">
+              <div class="bs-icon-xl bs-icon-circle bs-icon-primary d-flex flex-shrink-0 justify-content-center align-items-center d-inline-block mb-2 bs-icon lg" style="background: #22b14c; margin-right: 0px !important; margin-left: 0px !important;">
                   <i class="fa fa-envelope"></i>
               </div>
-              <div class="px-3">
-                  <h2 class="fw-bold mb-0">{{ $contactsCount }}+</h2>
-                  <p class="mb-0">Contact Us</p>
+              <div class="px-3" style="margin-right: 0px !important; margin-left: 0px !important;">
+                  <h2 class="fw-bold mb-0" style="margin-right: 0px !important; margin-left: 0px !important;">{{ $contactsCount }}+</h2>
+                  <p class="mb-0" style="margin-right: 0px !important; margin-left: 0px !important;">Contact Us</p>
               </div>
           </div>
       </div>
@@ -226,5 +220,9 @@
 <!-- End: Stats -->
 
   
-  
+
+
+
 @endsection
+
+

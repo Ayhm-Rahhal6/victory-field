@@ -2,48 +2,49 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Contact;
-use App\Mail\ContactMail;
+use GuzzleHttp\Promise\Create;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
+use App\Events\NewContactNotification;
+
 
 class ContactController extends Controller
 {
+
     public function index()
     {
         return view('public.pages.contact-us');
     }
 
-    public function store(Request $request)
-    {
-        // التحقق من صحة البيانات
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|email|max:255',
-            'message' => 'required|string',
-        ]);
-
-        // حفظ البيانات في قاعدة البيانات
-        Contact::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'message' => $request->message,
-        ]);
-
-        // إعادة التوجيه مع رسالة نجاح
-        return back()->with('success', 'Your message has been sent successfully!');
-    }
-
     public function send(Request $request)
     {
-        $request->validate([
+        $validated = $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email',
+            'subject' => 'required|string|max:255',
             'message' => 'required|string',
         ]);
 
-        Mail::to('your_email@gmail.com')->send(new ContactMail($request->all()));
+        Mail::send('email.contact', [
+            'name' => $validated['name'],
+            'email' => $validated['email'],
+            'subject' => $validated['subject'],
+            'body' => $validated['message'],
+        ], function ($message) use ($validated) {
+            $message->to('victoryl6311@gmail.com')  
+                    ->subject('New Contact Message: ' . $validated['subject']);
+        });
 
-        return back()->with('success', 'تم إرسال رسالتك بنجاح!');
+
+        Contact::create([
+            'name' => $validated['name'],
+            'email' => $validated['email'],
+            'subject' => $validated['subject'],
+            'message' => $validated['message'],
+        ]);
+
+        return back()->with('success', 'Message sent successfully!');
     }
+    
 }

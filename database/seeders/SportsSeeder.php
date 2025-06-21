@@ -48,16 +48,6 @@ class SportsSeeder extends Seeder
             'updated_at' => Carbon::now(),
         ],
         [
-            'title' => 'Chess',
-            'description_info' => 'Chess is a strategic board game played between two players, aiming to checkmate the opponent’s king.',
-            'description_rule' => 'Each player controls 16 pieces, and the game follows strict movement rules for each piece type.',
-            'image' => 'https://premierchessacademy.com/wp-content/uploads/2025/01/bigstock-208614778-1024x683-1.jpg',
-            'link_info' => 'https://www.fide.com/fide/about-fide#:~:text=The%20International%20Chess%20Federation%20(FIDE,Global%20Sporting%20Organization%20in%201999.',
-            'link_rule' => 'https://www.fide.com/FIDE/handbook/LawsOfChess.pdf',
-            'created_at' => Carbon::now(),
-            'updated_at' => Carbon::now(),
-        ],
-        [
             'title' => 'Volleyball',
             'description_info' => 'Volleyball is a team sport where two teams of six players hit a ball over a net.',
             'description_rule' => 'A team can hit the ball up to three times before sending it over the net. Matches are played in best-of-five sets.',

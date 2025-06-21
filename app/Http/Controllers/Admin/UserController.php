@@ -33,7 +33,14 @@ class UserController extends Controller
     public function destroy($id)
     {
         $user = User::findOrFail($id);
+        $userReservations = $user->reservations;
+
+        foreach ($userReservations as $reservation) {
+            $reservation->delete();
+        }
+
         $user->delete();
+
         
         return redirect()->route('admin.users.index')
                         ->with('success', 'User deleted successfully');

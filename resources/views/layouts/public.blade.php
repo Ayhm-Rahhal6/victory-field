@@ -13,6 +13,10 @@
   <link rel="stylesheet" href="/assets/css/styles.min.css?h=fe1cc04a4ee75f13a9d7e34e4097401b">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+  <meta name="csrf-token" content="{{ csrf_token() }}">
+
+
+
 </head>
 
 <body style="background: #e0e0e0;">

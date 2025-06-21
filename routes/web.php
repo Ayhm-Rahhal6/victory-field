@@ -15,6 +15,11 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\NewsController as AdminNewsController;
 use App\Http\Controllers\Admin\ReservationController as AdminReservationController;
 use App\Http\Controllers\Admin\FieldController;
+use App\Http\Controllers\ChatbotController;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
+use App\Http\Controllers\AiController;
+use App\Http\Controllers\StripeController;
 
 
 
@@ -26,11 +31,13 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::post('/contact/send', [ContactController::class, 'send'])->name('contact.send');
+
+
 Route::get('/', [NewsController::class, 'index'])->name('welcome');
 Route::get('/sports', [SportsController::class, 'index']);
 Route::get('/contact', [ContactController::class, 'index'])->name('contact.index');
-Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
-Route::post('/contact/send', [ContactController::class, 'send'])->name('contact.send');
+
 Route::get('/about',[PageController::class,'about'])->name('about');
 
 Route::get('/reservation',[ReservationController::class,'index'])->name('reservation.index');
@@ -41,6 +48,27 @@ Route::post('/reservation', [ReservationController::class, 'confirmReservation']
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/profile',[ProfileController::class,'index'])->name('profile.show');
 Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
+
+
+
+
+
+
+Route::get('/booked-times/{field}/{date}', [ReservationController::class, 'getBookedTimes']);
+Route::post('/get-reserved-times', [ReservationController::class, 'getReservedTimes'])->name('get.reserved.times');
+
+
+Route::post('/check-availability', [ReservationController::class, 'checkAvailability'])->name('check.availability');
+Route::get('/get-reserved-slots/{field}/{date}', [ReservationController::class, 'getReservedSlots']);
+
+
+
+
+Route::get('/reservation/check', [ReservationController::class, 'check'])->name('public.reservations.check');
+Route::get('/reserved-times', [ReservationController::class, 'getReservedTimes'])->name('reserved.times');
+
+
+
 
 
 //admin routes
@@ -115,4 +143,9 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
 
 
 
+
+
+
+     Route::get('/admin/contacts/unread-count', [ContactController::class, 'unreadCount'])
+    ->name('admin.contacts.unread-count');
 });

@@ -40,32 +40,32 @@
                 <form method="POST" action="{{ route('admin.news.store') }}" enctype="multipart/form-data">
                     @csrf
                     
-                    <div class="mb-3">
+                    <div class="mb-3 text-white">
                         <label for="title" class="form-label">Title</label>
                         <input type="text" class="form-control" id="title" name="title" required>
                     </div>
                     
-                    <div class="mb-3">
+                    <div class="mb-3 text-white">
                         <label for="description" class="form-label">Description</label>
                         <textarea class="form-control" id="description" name="description" rows="5" required></textarea>
                     </div>
                     
-                    <div class="mb-3">
+                    <div class="mb-3 text-white">
                         <label for="image" class="form-label">Main Image</label>
                         <input type="file" class="form-control" id="image" name="image">
                     </div>
                     
-                    <div class="mb-3">
+                    <div class="mb-3 text-white">
                         <label for="logo" class="form-label">Source Logo</label>
                         <input type="file" class="form-control" id="logo" name="logo">
                     </div>
                     
-                    <div class="mb-3">
+                    <div class="mb-3 text-white">
                         <label for="source" class="form-label">Source</label>
                         <input type="text" class="form-control" id="source" name="source" required>
                     </div>
                     
-                    <button type="submit" class="btn btn-primary">Create News</button>
+                    <button type="submit" class="btn btn-primary " style="background-color: #22b14c; border: #22b14c;">Create News</button>
                 </form>
             </div>
         </div>

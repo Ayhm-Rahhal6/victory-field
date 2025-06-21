@@ -63,7 +63,7 @@ class ReservationController extends Controller
         $validatedData = $request->validate(
             [
               'date' => 'required|date|after_or_equal:today',
-            'start_time' => 'required|date_format:G:i',  // Changed from H:i to G:i
+            'start_time' => 'required|date_format:G:i',  
             'end_time' => 'required|date_format:G:i|after:start_time',
             'sport_id' => 'required|exists:sports,id',
             'field_id' => 'required|exists:fields,id',
@@ -119,5 +119,36 @@ class ReservationController extends Controller
         ]);
 
         
+    }
+
+
+    public function checkAvailability(Request $request)
+    {
+        $existingReservation = Reservation::where('field_id', $request->field_id)
+            ->where('date', $request->date)
+            ->where(function($query) use ($request) {
+                $query->whereBetween('start_time', [$request->start_time, $request->end_time])
+                    ->orWhereBetween('end_time', [$request->start_time, $request->end_time])
+                    ->orWhere(function($query) use ($request) {
+                        $query->where('start_time', '<=', $request->start_time)
+                                ->where('end_time', '>=', $request->end_time);
+                    });
+            })
+            ->exists();
+
+        return response()->json(['available' => !$existingReservation]);
+    }
+
+
+    public function getReservedTimes(Request $request)
+    {
+        $fieldId = $request->field_id;
+        $date = $request->date;
+
+        $reservations = Reservation::where('field_id', $fieldId)
+            ->where('date', $date)
+            ->get(['start_time', 'end_time']);
+
+        return response()->json($reservations);
     }
 }

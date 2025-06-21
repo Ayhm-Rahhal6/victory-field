@@ -48,13 +48,14 @@
                     
                     <div class="mb-3">
                         <label for="email" class="form-label">Email</label>
-                        <input type="email" class="form-control" id="email" name="email" value="{{ $admin->email }}" required>
+                        <input type="email" class="form-control" id="email" name="email"  value="{{ old('email', $admin->email) }}" {{ (Auth::user()->role === 'admin') ? 'readonly' : '' }}  style="background-color: black;">
                     </div>
                     
                     <div class="mb-3">
                         <label for="phone_number" class="form-label">Phone Number</label>
                         <input type="text" class="form-control" id="phone_number" name="phone_number" value="{{ $admin->phone_number }}">
                     </div>
+
                     
                     <div class="mb-3">
                         <label for="password" class="form-label">Password (Leave blank to keep current)</label>
@@ -66,7 +67,7 @@
                         <input type="password" class="form-control" id="password_confirmation" name="password_confirmation">
                     </div>
                     
-                    <button type="submit" class="btn btn-primary">Update Admin</button>
+                    <button type="submit" class="btn btn-primary" style="background-color: #22b14c; border: #22b14c;">Update Admin</button>
                 </form>
             </div>
         </div>

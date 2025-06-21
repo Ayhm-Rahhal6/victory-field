@@ -30,9 +30,10 @@ class FieldController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'sport_type' => 'required|string|max:255',
-            'location' => 'required|url', // التحقق من أن الموقع هو رابط
+            'location' => 'required|url', 
             'price_per_hour' => 'nullable|integer',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'description' => 'nullable|string',
         ]);
 
         $data = $request->except('image');
@@ -64,26 +65,23 @@ class FieldController extends Controller
             'sport_type' => 'required|string|max:255',
             'location' => 'required|url',
             'price_per_hour' => 'required|numeric',
+            'description' => 'nullable|string',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
-        // تحديث الحقول الأساسية
         $field->name = $validated['name'];
         $field->sport_type = $validated['sport_type'];
         $field->location = $validated['location'];
         $field->price_per_hour = $validated['price_per_hour'];
+        $field->description = $validated['description'];
 
-        // معالجة الصورة
         if ($request->hasFile('image')) {
-            // حذف الصورة القديمة إن وجدت
             if ($field->image) {
                 Storage::disk('public')->delete($field->image);
             }
-            // حفظ الصورة الجديدة
             $field->image = $request->file('image')->store('fields', 'public');
         }
 
-        // حفظ التغييرات
         $field->save();
 
         return redirect()->route('admin.fields.index')

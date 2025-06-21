@@ -22,7 +22,7 @@ class ContactMail extends Mailable
 
     public function build()
     {
-        return $this->subject('رسالة جديدة من Contact Us')
+        return $this->subject('New Message From - Contact Us')
                     ->view('public.pages.contact-us')
                     ->with('data', $this->data);
     }

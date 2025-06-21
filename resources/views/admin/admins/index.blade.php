@@ -34,7 +34,7 @@
                 <div class="d-flex align-items-center justify-content-between mb-4">
                     <h6 class="mb-0">Admins List</h6>
                     @can('create', App\Models\User::class)
-                    <a href="{{ route('admin.admins.create') }}" class="btn btn-primary">
+                    <a href="{{ route('admin.admins.create') }}" class="btn btn-primary" style="background-color: #22b14c; border: #22b14c;">
                         <i class="fas fa-plus me-2"></i>Add Admin
                     </a>
                     @endcan
@@ -61,10 +61,10 @@
                         </thead>
                         <tbody>
                             @forelse ($admins as $admin)
-                            <tr>
+                            <tr class="text-white">
                                 <td>{{ $loop->iteration + ($admins->currentPage() - 1) * $admins->perPage() }}</td>
                                 <td>{{ $admin->name }}</td>
-                                <td>{{ $admin->email }}</td>
+                                <td >{{ $admin->email }}</td>
                                 <td>{{ $admin->phone_number ?? 'N/A' }}</td>
                                 <td>
                                     <span class="badge {{ $admin->role === 'super_admin' ? 'bg-danger' : 'bg-warning' }}">
@@ -73,22 +73,27 @@
                                 </td>
                                 {{-- <td>{{ $admin->created_at->format('M d, Y H:i') }}</td> --}}
                                 <td class="d-flex gap-2">
-                                    <a href="{{ route('admin.admins.edit', $admin->id) }}" class="btn btn-sm btn-info">
-                                        <i class="fas fa-edit"></i> Edit
-                                    </a>
-                                    
+                                    @if((Auth::user()->role === 'admin' && Auth::id() === $admin->id) || Auth::user()->role === 'super_admin')
+                                        <a href="{{ route('admin.admins.edit', $admin->id) }}" class="btn btn-sm btn-info">
+                                            <i class="fas fa-edit"></i> Edit
+                                        </a>
+                                    @else
+                                        <span class="text-muted"><i class="fas fa-edit"></i> No Access</span>
+                                    @endif
+
                                     @can('delete', $admin)
-                                    <form action="{{ route('admin.admins.destroy', $admin->id) }}" method="POST">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" 
-                                                class="btn btn-sm btn-danger"
-                                                onclick="return confirm('Are you sure you want to delete this admin?')">
+                                        <form action="{{ route('admin.admins.destroy', $admin->id) }}" method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" 
+                                                    class="btn btn-sm btn-danger"
+                                                    onclick="return confirm('Are you sure you want to delete this admin?')">
                                                 <i class="fas fa-trash"></i> Delete
-                                        </button>
-                                    </form>
+                                            </button>
+                                        </form>
                                     @endcan
                                 </td>
+
                             </tr>
                             @empty
                             <tr>
